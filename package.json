@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ngcc",
+    "openapi": "ng-openapi-gen --input https://localhost:44319/meta/v1/swagger.json --output ./src/app/openapi"
   },
   "private": true,
   "dependencies": {
@@ -16,10 +18,15 @@
     "@angular/compiler": "~9.0.5",
     "@angular/core": "~9.0.5",
     "@angular/forms": "~9.0.5",
+    "@angular/localize": "^9.0.6",
     "@angular/platform-browser": "~9.0.5",
     "@angular/platform-browser-dynamic": "~9.0.5",
     "@angular/router": "~9.0.5",
+    "@patternfly/patternfly": "^2.68.3",
     "rxjs": "~6.5.4",
+    "stk-datepicker": "0.0.9",
+    "stk-forms": "0.0.14",
+    "stk-tables": "0.0.2",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },

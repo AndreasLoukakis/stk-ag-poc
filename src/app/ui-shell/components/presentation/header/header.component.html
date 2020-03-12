@@ -1,0 +1,64 @@
+<header role="banner" class="pf-c-page__header">
+  <div class="pf-c-page__header-brand">
+    <div class="pf-c-page__header-brand-toggle">
+      <button class="pf-c-button pf-m-plain" type="button" id="page-default-nav-example-nav-toggle" aria-label="Global navigation" aria-expanded="true" aria-controls="page-default-nav-example-primary-nav">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
+    </div>
+    <a class="pf-c-page__header-brand-link">
+      LOGO demo
+    </a>
+  </div>
+  <div class="pf-c-page__header-tools">
+    <div class="pf-c-page__header-tools-group pf-m-icons">
+      <button class="pf-c-button pf-m-plain" type="button" aria-label="Unread notifications">
+        <span class="pf-c-notification-badge pf-m-unread">
+          <i class="fas fa-bell" aria-hidden="true"></i>
+        </span>
+      </button>
+      <button class="pf-c-button pf-m-plain" type="button" aria-label="Settings">
+        <i class="fas fa-cog" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="pf-c-page__header-tools-group">
+      <div class="pf-c-dropdown">
+        <button class="pf-c-dropdown__toggle pf-m-mobile pf-m-plain" type="button" id="page-default-nav-example-dropdown-kebab-right-aligned-1-button" aria-expanded="false" aria-label="Actions">
+          <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+        </button>
+        <ul class="pf-c-dropdown__menu pf-m-align-right" aria-labelledby="page-default-nav-example-dropdown-kebab-right-aligned-1-button" hidden="">
+          <li>
+            <a class="pf-c-dropdown__menu-item" href="#">Link</a>
+          </li>
+          <li>
+            <button class="pf-c-dropdown__menu-item" type="button">Action</button>
+          </li>
+          <li>
+            <a class="pf-c-dropdown__menu-item pf-m-disabled" href="#" aria-disabled="true" tabindex="-1">Disabled link</a>
+          </li>
+          <li>
+            <button class="pf-c-dropdown__menu-item" type="button" disabled="">Disabled action</button>
+          </li>
+          <li class="pf-c-dropdown__separator" role="separator"></li>
+          <li>
+            <a class="pf-c-dropdown__menu-item" href="#">Separated link</a>
+          </li>
+        </ul>
+      </div>
+      <div class="pf-m-user">
+        <!-- <div class="pf-c-dropdown">
+          <button class="pf-c-dropdown__toggle pf-m-plain" type="button" id="page-default-nav-example-dropdown-button" aria-expanded="false">
+            <span class="pf-c-dropdown__toggle-text">John Smith</span>
+            <i class="fas fa-caret-down pf-c-dropdown__toggle-icon" aria-hidden="true"></i>
+          </button>
+          <div class="pf-c-dropdown__menu" hidden="">[Panel contents here]</div>
+        </div> -->
+        <label class="pf-c-switch" for="switch-with-label-1">
+          <input (click)="toggleDebug()" class="pf-c-switch__input" type="checkbox" id="switch-with-label-1"  [checked]="debugState" />
+          <span class="pf-c-switch__toggle"></span>
+          <span style="color: #ccc" class="pf-c-switch__label pf-m-on" id="switch-with-label-1-on" aria-hidden="true">Debug is ON</span>
+          <span style="color: #ccc" class="pf-c-switch__label pf-m-off" id="switch-with-label-1-off" aria-hidden="true">Debug is OFF</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</header>

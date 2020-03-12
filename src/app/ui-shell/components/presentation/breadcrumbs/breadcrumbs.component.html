@@ -1,0 +1,17 @@
+<section class="pf-c-page__main-breadcrumb">
+  <nav class="pf-c-breadcrumb" aria-label="breadcrumb">
+    <ol *ngIf="breadcrumbs$ | async as bcs" class="pf-c-breadcrumb__list">
+      <li *ngFor="let bc of bcs" class="pf-c-breadcrumb__item">
+        <a [routerLink]="[bc.url]" class="pf-c-breadcrumb__link">{{bc.label}}</a>
+        <span class="pf-c-breadcrumb__item-divider">
+          <i class="fas fa-angle-right" aria-hidden="true"></i>
+        </span>
+      </li>
+    </ol>
+  </nav>
+</section>
+<section class="pf-c-page__main-section pf-m-light">
+  <div class="pf-c-content">
+    <h1>{{title}}</h1>
+  </div>
+</section>
