@@ -1,6 +1,7 @@
 
 export interface RendererInfo {
-  currie: string;
+  propertyName: string;
+  currieName?: string;
   href: string;
-  resource: string;
+  values?: string;
 }
