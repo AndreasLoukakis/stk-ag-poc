@@ -5,7 +5,12 @@ import { StkFormsModule } from 'stk-forms';
 import { StkDatepickerModule } from 'stk-datepicker';
 import { CommonModule } from '@angular/common';
 
-import { RendererInfo } from './../../../models';
+import { OpenapiService } from './../../../services/openapi.service';
+import { HalService } from './../../../services/hal.service';
+
+import { ResourceInfo } from './../../../models';
+
+import { tap } from 'rxjs/operators';
 
 @Component({
   templateUrl: './branch.component.html',
@@ -13,7 +18,7 @@ import { RendererInfo } from './../../../models';
 })
 export class BranchComponent implements OnInit {
 
-  @Input() renderInfo: RendererInfo;
+  @Input() renderInfo: ResourceInfo;
   group: FormGroup = new FormGroup({});
 
   config = {
@@ -28,9 +33,13 @@ export class BranchComponent implements OnInit {
     x_validation: []
   };
 
-  constructor() { }
+  constructor(
+    private openapiService: OpenapiService,
+    private halService: HalService
+  ) { }
 
   ngOnInit(): void {
+    this.halService.getResource(this.renderInfo.href).pipe(tap(console.log));
   }
 
 }

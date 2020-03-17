@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface ReferenceOfCurrency  {
+export interface ReferenceOfApplicationDto  {
   id: { 
     format: number;
     type: number;

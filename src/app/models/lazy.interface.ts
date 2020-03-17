@@ -1,5 +1,5 @@
-import { RendererInfo } from './';
+import { ResourceInfo } from './';
 
 export abstract class LazyInterface {
-    renderInfo: RendererInfo;
+    renderInfo: ResourceInfo;
 }

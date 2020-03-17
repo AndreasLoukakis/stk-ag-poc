@@ -1,6 +1,6 @@
 /* tslint:disable */
-import { ApplicationDto } from './application-dto';
+import { ReferenceOfApplicationDto } from './reference-of-application-dto';
 export interface DealDto {
-  application?: null | ApplicationDto;
+  application?: null | ReferenceOfApplicationDto;
   id?: number;
 }

@@ -7,6 +7,8 @@ import { IndexService } from './services/index.service';
 import { LinkRelationService } from './services/link-relation.service';
 import { DealService } from './services/deal.service';
 import { BranchService } from './services/branch.service';
+import { ConsumerProductService } from './services/consumer-product.service';
+import { MortgageProductService } from './services/mortgage-product.service';
 import { BorrowerRoleTypeService } from './services/borrower-role-type.service';
 import { ChannelService } from './services/channel.service';
 import { CurrencyService } from './services/currency.service';
@@ -14,9 +16,8 @@ import { DealPartyRoleTypeService } from './services/deal-party-role-type.servic
 import { LoanTypeService } from './services/loan-type.service';
 import { ConsumerFactoryProductService } from './services/consumer-factory-product.service';
 import { MortgageFactoryProductService } from './services/mortgage-factory-product.service';
+import { ProductCategoryService } from './services/product-category.service';
 import { ApplicationService } from './services/application.service';
-import { ConsumerProductService } from './services/consumer-product.service';
-import { MortgageProductService } from './services/mortgage-product.service';
 
 /**
  * Module that provides all services and configuration.
@@ -30,6 +31,8 @@ import { MortgageProductService } from './services/mortgage-product.service';
     LinkRelationService,
     DealService,
     BranchService,
+    ConsumerProductService,
+    MortgageProductService,
     BorrowerRoleTypeService,
     ChannelService,
     CurrencyService,
@@ -37,9 +40,8 @@ import { MortgageProductService } from './services/mortgage-product.service';
     LoanTypeService,
     ConsumerFactoryProductService,
     MortgageFactoryProductService,
+    ProductCategoryService,
     ApplicationService,
-    ConsumerProductService,
-    MortgageProductService,
     ApiConfiguration
   ],
 })

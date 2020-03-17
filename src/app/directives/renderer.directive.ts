@@ -2,7 +2,7 @@ import {
   Directive, Input, ViewContainerRef, ComponentFactoryResolver,
   ComponentRef, OnChanges, SimpleChanges
 } from '@angular/core';
-import { RendererInfo, LazyInterface } from './../models';
+import { ResourceInfo, LazyInterface } from './../models';
 import { Observable } from 'rxjs';
 
 import { ComponentMapperService } from './../services/component-mapper.service';
@@ -12,7 +12,7 @@ import { ComponentMapperService } from './../services/component-mapper.service';
 })
 export class RendererDirective implements OnChanges {
 
-  @Input() renderInfo$: Observable<RendererInfo>;
+  @Input() renderInfo$: Observable<ResourceInfo>;
   component: ComponentRef<LazyInterface>;
 
   constructor(
@@ -27,7 +27,7 @@ export class RendererDirective implements OnChanges {
       this.component.instance.renderInfo = changes.renderInfo$.currentValue;
     } else {
       if (changes.renderInfo$ && changes.renderInfo$.currentValue) {
-        const name = changes.renderInfo$.currentValue?.renderInfo?.currieName;
+        const name = changes.renderInfo$.currentValue?.resourceInfo?.currieName;
         this.getComponent(this.mapper.getComponentName(name), changes.renderInfo$.currentValue);
       }
     }

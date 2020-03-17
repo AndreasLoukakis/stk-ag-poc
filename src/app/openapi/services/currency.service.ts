@@ -419,4 +419,300 @@ export class CurrencyService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation currencyFindProperty25
+   */
+  static readonly CurrencyFindProperty25Path = '/consumerFactoryProducts/{id}/Currency';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `currencyFindProperty25()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  currencyFindProperty25$Response(params: {
+    id: number;
+
+  }): Observable<StrictHttpResponse<CurrencyDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CurrencyService.CurrencyFindProperty25Path, 'get');
+    if (params) {
+
+      rb.path('Id', params.id);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<CurrencyDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `currencyFindProperty25$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  currencyFindProperty25(params: {
+    id: number;
+
+  }): Observable<CurrencyDto> {
+
+    return this.currencyFindProperty25$Response(params).pipe(
+      map((r: StrictHttpResponse<CurrencyDto>) => r.body as CurrencyDto)
+    );
+  }
+
+  /**
+   * Path part for operation currencyFindProperty24
+   */
+  static readonly CurrencyFindProperty24Path = '/consumerFactoryProducts/{id}/Currency';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `currencyFindProperty24()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  currencyFindProperty24$Response(params: {
+    id: number;
+      body: CurrencyDto
+  }): Observable<StrictHttpResponse<CurrencyDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CurrencyService.CurrencyFindProperty24Path, 'put');
+    if (params) {
+
+      rb.path('Id', params.id);
+
+      rb.body(params.body, 'application/json');
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<CurrencyDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `currencyFindProperty24$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  currencyFindProperty24(params: {
+    id: number;
+      body: CurrencyDto
+  }): Observable<CurrencyDto> {
+
+    return this.currencyFindProperty24$Response(params).pipe(
+      map((r: StrictHttpResponse<CurrencyDto>) => r.body as CurrencyDto)
+    );
+  }
+
+  /**
+   * Path part for operation currencyDeleteProperty22
+   */
+  static readonly CurrencyDeleteProperty22Path = '/consumerFactoryProducts/{id}/Currency';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `currencyDeleteProperty22()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  currencyDeleteProperty22$Response(params: {
+    id: number;
+
+  }): Observable<StrictHttpResponse<Blob>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CurrencyService.CurrencyDeleteProperty22Path, 'delete');
+    if (params) {
+
+      rb.path('Id', params.id);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: 'application/octet-stream'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Blob>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `currencyDeleteProperty22$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  currencyDeleteProperty22(params: {
+    id: number;
+
+  }): Observable<Blob> {
+
+    return this.currencyDeleteProperty22$Response(params).pipe(
+      map((r: StrictHttpResponse<Blob>) => r.body as Blob)
+    );
+  }
+
+  /**
+   * Path part for operation currencyFindProperty27
+   */
+  static readonly CurrencyFindProperty27Path = '/mortgageFactoryProducts/{id}/Currency';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `currencyFindProperty27()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  currencyFindProperty27$Response(params: {
+    id: number;
+
+  }): Observable<StrictHttpResponse<CurrencyDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CurrencyService.CurrencyFindProperty27Path, 'get');
+    if (params) {
+
+      rb.path('Id', params.id);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<CurrencyDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `currencyFindProperty27$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  currencyFindProperty27(params: {
+    id: number;
+
+  }): Observable<CurrencyDto> {
+
+    return this.currencyFindProperty27$Response(params).pipe(
+      map((r: StrictHttpResponse<CurrencyDto>) => r.body as CurrencyDto)
+    );
+  }
+
+  /**
+   * Path part for operation currencyFindProperty26
+   */
+  static readonly CurrencyFindProperty26Path = '/mortgageFactoryProducts/{id}/Currency';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `currencyFindProperty26()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  currencyFindProperty26$Response(params: {
+    id: number;
+      body: CurrencyDto
+  }): Observable<StrictHttpResponse<CurrencyDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CurrencyService.CurrencyFindProperty26Path, 'put');
+    if (params) {
+
+      rb.path('Id', params.id);
+
+      rb.body(params.body, 'application/json');
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<CurrencyDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `currencyFindProperty26$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  currencyFindProperty26(params: {
+    id: number;
+      body: CurrencyDto
+  }): Observable<CurrencyDto> {
+
+    return this.currencyFindProperty26$Response(params).pipe(
+      map((r: StrictHttpResponse<CurrencyDto>) => r.body as CurrencyDto)
+    );
+  }
+
+  /**
+   * Path part for operation currencyDeleteProperty23
+   */
+  static readonly CurrencyDeleteProperty23Path = '/mortgageFactoryProducts/{id}/Currency';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `currencyDeleteProperty23()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  currencyDeleteProperty23$Response(params: {
+    id: number;
+
+  }): Observable<StrictHttpResponse<Blob>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CurrencyService.CurrencyDeleteProperty23Path, 'delete');
+    if (params) {
+
+      rb.path('Id', params.id);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: 'application/octet-stream'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Blob>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `currencyDeleteProperty23$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  currencyDeleteProperty23(params: {
+    id: number;
+
+  }): Observable<Blob> {
+
+    return this.currencyDeleteProperty23$Response(params).pipe(
+      map((r: StrictHttpResponse<Blob>) => r.body as Blob)
+    );
+  }
+
 }

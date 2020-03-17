@@ -1,7 +1,7 @@
-import { RendererInfo } from './';
+import { ResourceInfo, PropertyInfo } from './';
 
 export interface ResourceProperty {
   isResource: boolean;
-  renderInfo?: RendererInfo;
-  displayInfo?: any;
+  resourceInfo?: ResourceInfo;
+  propertyInfo?: PropertyInfo;
 }

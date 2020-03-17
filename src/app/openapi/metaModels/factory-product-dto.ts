@@ -1,7 +1,7 @@
 /* tslint:disable */
 import { RangeDtoOfDecimal } from './../models/range-dto-of-decimal';
 import { RangeDtoOfInteger } from './../models/range-dto-of-integer';
-import { ReferenceOfCurrency } from './../models/reference-of-currency';
+import { ReferenceOfCurrencyDto } from './../models/reference-of-currency-dto';
 import { ReferenceOfLoanTypeDto } from './../models/reference-of-loan-type-dto';
 export interface FactoryProductDto  {
   amount: { 
@@ -14,7 +14,7 @@ export interface FactoryProductDto  {
   };
   currency: { 
     nullable: true;
-    type: null | ReferenceOfCurrency;
+    type: null | ReferenceOfCurrencyDto;
   };
   description: { 
     nullable: true;

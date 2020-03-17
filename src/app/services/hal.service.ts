@@ -28,9 +28,17 @@ export class HalService {
   formatResource(response: any, props): {[key: string]: ResourceProperty} {
 
     const lowerCasedProps = props.map(prop => prop.toLowerCase());
+
+    const allProperties = Object.keys(response).reduce((all, current) => {
+      if (props.includes(current)) {
+        all[current] = this.initPropData(current);
+      }
+      return all;
+    }, {});
+
+    /** resources */
     const linkKeys: string[] = Object.keys(response._links);
     const valueLinkKeys = linkKeys.filter(link => link.endsWith('.values'));
-
     const propLinks = linkKeys.filter(link => {
       const name = response._links[link][0]?.name ? response._links[link][0].name :
         response._links[link]?.name ? response._links[link]?.name : undefined;
@@ -42,20 +50,19 @@ export class HalService {
     return propLinks.reduce((links, cur) => {
       if (Array.isArray(response._links[cur])) {
         response._links[cur].map(valueLink => {
-          const propName = props.find(prop => prop.toLowerCase() === valueLink.name.toLowerCase());
-          if (propName) {
-            links[propName] = this.setupProp(valueLink, propValues, propName, cur);
+          const propName = this.toCamelCase(valueLink.name);
+          if (links[propName]) {
+            this.makeResourceData(valueLink, propValues, propName, cur, response, links[propName]);
           }
         });
       } else {
-        const propName = props.find(prop => prop.toLowerCase() === response._links[cur].name.toLowerCase());
-        if (propName) {
-          links[propName] = this.setupProp(response._links[cur], propValues, propName, cur);
+        const propName = this.toCamelCase(response._links[cur].name);
+        if (links[propName]) {
+          this.makeResourceData(response._links[cur], propValues, propName, cur, response, links[propName]);
         }
       }
       return links;
-    }, {});
-
+    }, allProperties);
   }
 
   private calculateValueLinks(valueLinkKeys, response) {
@@ -79,14 +86,16 @@ export class HalService {
     }, {});
   }
 
-  private setupProp(item, propValues, propName, cur) {
-    const prop = this.initPropData(propName);
+  private makeResourceData(item, propValues, propName, cur, response, prop) {
     prop.isResource = true;
-    prop.renderInfo.currieName = cur;
-    prop.renderInfo.href = item.href;
-    prop.renderInfo.propertyName = propName;
+    prop.resourceInfo.currieName = cur;
+    prop.resourceInfo.href = item.href;
+    prop.resourceInfo.propertyName = propName;
     if (propValues[propName.toLowerCase()]) {
-      prop.renderInfo.values = propValues[propName.toLowerCase()];
+      prop.resourceInfo.values = propValues[propName.toLowerCase()];
+    }
+    if (response[propName] && response[propName].id) {
+      prop.resourceInfo.id = response[propName].id;
     }
     return prop;
   }
@@ -95,11 +104,16 @@ export class HalService {
   private initPropData(prop: string): ResourceProperty {
     return {
       isResource: false,
-      displayInfo: {},
-      renderInfo: {
+      propertyInfo: {
+        propertyName: prop
+      },
+      resourceInfo: {
         propertyName: prop,
-        href: undefined,
       }
     };
+  }
+
+  private toCamelCase(str) {
+    return `${str.substr( 0, 1 ).toLowerCase()}${str.substr( 1 )}`;
   }
 }

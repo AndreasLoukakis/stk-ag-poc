@@ -1,9 +1,9 @@
 /* tslint:disable */
-import { ApplicationDto } from './../models/application-dto';
+import { ReferenceOfApplicationDto } from './../models/reference-of-application-dto';
 export interface DealDto  {
   application: { 
     nullable: true;
-    type: null | ApplicationDto;
+    type: null | ReferenceOfApplicationDto;
   };
   id: { 
     format: number;

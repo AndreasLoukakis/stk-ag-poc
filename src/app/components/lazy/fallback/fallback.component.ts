@@ -1,6 +1,5 @@
 import { Component, OnInit, NgModule, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RendererInfo } from './../../../models';
+import { ResourceInfo } from './../../../models';
 
 @Component({
   templateUrl: './fallback.component.html',
@@ -8,7 +7,7 @@ import { RendererInfo } from './../../../models';
 })
 export class FallbackComponent implements OnInit {
 
-  @Input() renderInfo: RendererInfo;
+  @Input() renderInfo: ResourceInfo;
 
 
   constructor() { }
@@ -17,9 +16,4 @@ export class FallbackComponent implements OnInit {
   }
 }
 
-// @NgModule({
-//   declarations: [FallbackComponent],
-//   imports: [CommonModule]
-// })
-// class FallbackModule {}
 

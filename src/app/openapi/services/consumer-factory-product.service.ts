@@ -25,7 +25,7 @@ export class ConsumerFactoryProductService extends BaseService {
   /**
    * Path part for operation consumerFactoryProductSearch
    */
-  static readonly ConsumerFactoryProductSearchPath = '/consumer-factory-products';
+  static readonly ConsumerFactoryProductSearchPath = '/consumerFactoryProducts';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -77,7 +77,7 @@ export class ConsumerFactoryProductService extends BaseService {
   /**
    * Path part for operation consumerFactoryProductFind
    */
-  static readonly ConsumerFactoryProductFindPath = '/consumer-factory-products/{id}';
+  static readonly ConsumerFactoryProductFindPath = '/consumerFactoryProducts/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.

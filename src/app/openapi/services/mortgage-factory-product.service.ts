@@ -25,7 +25,7 @@ export class MortgageFactoryProductService extends BaseService {
   /**
    * Path part for operation mortgageFactoryProductSearch
    */
-  static readonly MortgageFactoryProductSearchPath = '/mortgage-factory-products';
+  static readonly MortgageFactoryProductSearchPath = '/mortgageFactoryProducts';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -77,7 +77,7 @@ export class MortgageFactoryProductService extends BaseService {
   /**
    * Path part for operation mortgageFactoryProductFind
    */
-  static readonly MortgageFactoryProductFindPath = '/mortgage-factory-products/{id}';
+  static readonly MortgageFactoryProductFindPath = '/mortgageFactoryProducts/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.

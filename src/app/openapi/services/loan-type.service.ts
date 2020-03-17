@@ -271,4 +271,249 @@ export class LoanTypeService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation loanTypeFindProperty22
+   */
+  static readonly LoanTypeFindProperty22Path = '/consumerProducts/{id}/LoanType';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `loanTypeFindProperty22()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  loanTypeFindProperty22$Response(params: {
+    id: number;
+
+  }): Observable<StrictHttpResponse<LoanTypeDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LoanTypeService.LoanTypeFindProperty22Path, 'get');
+    if (params) {
+
+      rb.path('Id', params.id);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<LoanTypeDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `loanTypeFindProperty22$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  loanTypeFindProperty22(params: {
+    id: number;
+
+  }): Observable<LoanTypeDto> {
+
+    return this.loanTypeFindProperty22$Response(params).pipe(
+      map((r: StrictHttpResponse<LoanTypeDto>) => r.body as LoanTypeDto)
+    );
+  }
+
+  /**
+   * Path part for operation loanTypeFindProperty23
+   */
+  static readonly LoanTypeFindProperty23Path = '/mortgageProducts/{id}/LoanType';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `loanTypeFindProperty23()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  loanTypeFindProperty23$Response(params: {
+    id: number;
+
+  }): Observable<StrictHttpResponse<LoanTypeDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LoanTypeService.LoanTypeFindProperty23Path, 'get');
+    if (params) {
+
+      rb.path('Id', params.id);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<LoanTypeDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `loanTypeFindProperty23$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  loanTypeFindProperty23(params: {
+    id: number;
+
+  }): Observable<LoanTypeDto> {
+
+    return this.loanTypeFindProperty23$Response(params).pipe(
+      map((r: StrictHttpResponse<LoanTypeDto>) => r.body as LoanTypeDto)
+    );
+  }
+
+  /**
+   * Path part for operation loanTypeFindProperty24
+   */
+  static readonly LoanTypeFindProperty24Path = '/consumerFactoryProducts/{id}/LoanType';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `loanTypeFindProperty24()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  loanTypeFindProperty24$Response(params: {
+    id: number;
+
+  }): Observable<StrictHttpResponse<LoanTypeDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LoanTypeService.LoanTypeFindProperty24Path, 'get');
+    if (params) {
+
+      rb.path('Id', params.id);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<LoanTypeDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `loanTypeFindProperty24$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  loanTypeFindProperty24(params: {
+    id: number;
+
+  }): Observable<LoanTypeDto> {
+
+    return this.loanTypeFindProperty24$Response(params).pipe(
+      map((r: StrictHttpResponse<LoanTypeDto>) => r.body as LoanTypeDto)
+    );
+  }
+
+  /**
+   * Path part for operation loanTypeFindProperty25
+   */
+  static readonly LoanTypeFindProperty25Path = '/mortgageFactoryProducts/{id}/LoanType';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `loanTypeFindProperty25()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  loanTypeFindProperty25$Response(params: {
+    id: number;
+
+  }): Observable<StrictHttpResponse<LoanTypeDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LoanTypeService.LoanTypeFindProperty25Path, 'get');
+    if (params) {
+
+      rb.path('Id', params.id);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<LoanTypeDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `loanTypeFindProperty25$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  loanTypeFindProperty25(params: {
+    id: number;
+
+  }): Observable<LoanTypeDto> {
+
+    return this.loanTypeFindProperty25$Response(params).pipe(
+      map((r: StrictHttpResponse<LoanTypeDto>) => r.body as LoanTypeDto)
+    );
+  }
+
+  /**
+   * Path part for operation loanTypeFindProperty26
+   */
+  static readonly LoanTypeFindProperty26Path = '/productCategories/{id}/LoanType';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `loanTypeFindProperty26()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  loanTypeFindProperty26$Response(params: {
+    id: number;
+
+  }): Observable<StrictHttpResponse<LoanTypeDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LoanTypeService.LoanTypeFindProperty26Path, 'get');
+    if (params) {
+
+      rb.path('Id', params.id);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<LoanTypeDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `loanTypeFindProperty26$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  loanTypeFindProperty26(params: {
+    id: number;
+
+  }): Observable<LoanTypeDto> {
+
+    return this.loanTypeFindProperty26$Response(params).pipe(
+      map((r: StrictHttpResponse<LoanTypeDto>) => r.body as LoanTypeDto)
+    );
+  }
+
 }

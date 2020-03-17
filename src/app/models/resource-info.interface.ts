@@ -1,7 +1,8 @@
 
-export interface RendererInfo {
+export interface ResourceInfo {
+  id?: number;
   propertyName: string;
   currieName?: string;
-  href: string;
+  href?: string;
   values?: string;
 }
