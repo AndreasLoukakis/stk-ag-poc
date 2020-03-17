@@ -1,9 +1,11 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, NgModule, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { StkFormsModule } from 'stk-forms';
 import { StkDatepickerModule } from 'stk-datepicker';
+import { CommonModule } from '@angular/common';
 
+import { RendererInfo } from './../../../models';
 
 @Component({
   templateUrl: './branch.component.html',
@@ -11,6 +13,7 @@ import { StkDatepickerModule } from 'stk-datepicker';
 })
 export class BranchComponent implements OnInit {
 
+  @Input() renderInfo: RendererInfo;
   group: FormGroup = new FormGroup({});
 
   config = {
@@ -34,6 +37,6 @@ export class BranchComponent implements OnInit {
 
 @NgModule({
   declarations: [BranchComponent],
-  imports: [StkFormsModule, StkDatepickerModule]
+  imports: [StkFormsModule, StkDatepickerModule, CommonModule]
 })
 class BranchModule {}

@@ -1,35 +1,58 @@
-import { Directive, Input, ViewContainerRef, ComponentFactoryResolver, OnInit, ComponentRef } from '@angular/core';
+import {
+  Directive, Input, ViewContainerRef, ComponentFactoryResolver,
+  ComponentRef, OnChanges, SimpleChanges
+} from '@angular/core';
 import { RendererInfo, LazyInterface } from './../models';
+import { Observable } from 'rxjs';
+
+import { ComponentMapperService } from './../services/component-mapper.service';
 
 @Directive({
   selector: '[appRenderer]'
 })
-export class RendererDirective implements OnInit {
+export class RendererDirective implements OnChanges {
 
-  @Input() renderInfo: RendererInfo;
+  @Input() renderInfo$: Observable<RendererInfo>;
   component: ComponentRef<LazyInterface>;
 
   constructor(
     private viewRef: ViewContainerRef,
-    private factory: ComponentFactoryResolver
+    private factory: ComponentFactoryResolver,
+    private mapper: ComponentMapperService
   ) { }
 
-  ngOnInit() {
-    this.getComponent('branch');
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.component) {
+      this.component.instance.renderInfo = changes.renderInfo$.currentValue;
+    } else {
+      if (changes.renderInfo$ && changes.renderInfo$.currentValue) {
+        const name = changes.renderInfo$.currentValue?.renderInfo?.currieName;
+        this.getComponent(this.mapper.getComponentName(name), changes.renderInfo$.currentValue);
+      }
+    }
   }
 
   /**
    * Lazy loading components
    * @param name : string, must follow specific contract in order to resolve proper component.
    */
-  async getComponent(name: string) {
+  async getComponent(name: string, instanceData) {
     this.viewRef.clear();
-    const className = this.nameToComponentClass(name);
-    const componentFilename = this.nameToComponentFile(name);
+    let className = this.nameToComponentClass(name);
+    const fileName = this.nameToComponentFile(name);
+    const folder = this.nameToComponentFolder(name);
+    let module;
+    try {
+      module = await import (`./../components/lazy/${folder}/${fileName}`);
+    } catch (e) {
+      console.error('Component not implemented or not properly resolved', e);
+      module = await import (`./../components/lazy/fallback/fallback.component`);
+      className = 'FallbackComponent';
+    }
 
-    const module = await import (`./../components/lazy/${name.toLowerCase()}/${componentFilename}`);
     this.component = this.viewRef.createComponent(this.factory.resolveComponentFactory<LazyInterface>(module[className]));
-    this.component.instance.renderInfo = this.renderInfo;
+    this.component.instance.renderInfo = instanceData;
   }
 
   nameToClass(name: string) {
@@ -40,8 +63,12 @@ export class RendererDirective implements OnInit {
     return `${this.nameToClass(name)}Component`;
   }
 
+  nameToComponentFolder(name: string) {
+    return `${name.split(/(?=[A-Z])/).join('-').toLowerCase()}`;
+  }
+
   nameToComponentFile(name: string) {
-    return `${name.split(/(?=[A-Z])/)}.component`;
+    return `${this.nameToComponentFolder(name)}.component`;
   }
 
 }

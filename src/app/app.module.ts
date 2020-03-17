@@ -14,6 +14,7 @@ import { ApplicationComponent } from './components/application/application.compo
 import { DealComponent } from './components/wrapers/deal/deal.component';
 import { DebugDirective } from './directives/debug.directive';
 import { RendererDirective } from './directives/renderer.directive';
+import { FallbackComponent } from './components/lazy/fallback/fallback.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { RendererDirective } from './directives/renderer.directive';
     DealComponent,
     DebugDirective,
     RendererDirective,
+    FallbackComponent,
   ],
   imports: [
     BrowserModule,
