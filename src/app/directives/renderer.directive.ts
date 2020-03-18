@@ -27,7 +27,7 @@ export class RendererDirective implements OnChanges {
       this.component.instance.renderInfo = changes.renderInfo$.currentValue;
     } else {
       if (changes.renderInfo$ && changes.renderInfo$.currentValue) {
-        const name = changes.renderInfo$.currentValue?.resourceInfo?.currieName;
+        const name = changes.renderInfo$.currentValue?.currieName;
         this.getComponent(this.mapper.getComponentName(name), changes.renderInfo$.currentValue);
       }
     }

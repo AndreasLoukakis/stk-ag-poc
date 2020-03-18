@@ -1,14 +1,13 @@
-import { Component, OnInit, NgModule, Input } from '@angular/core';
+import { Component, OnInit, NgModule, OnChanges, SimpleChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormGroup } from '@angular/forms';
 
-import { StkFormsModule } from 'stk-forms';
-import { StkDatepickerModule } from 'stk-datepicker';
-import { CommonModule } from '@angular/common';
-
+import { LazyBase } from './../lazy-base';
 import { OpenapiService } from './../../../services/openapi.service';
 import { HalService } from './../../../services/hal.service';
 
-import { ResourceInfo } from './../../../models';
+import { StkFormsModule } from 'stk-forms';
+import { StkDatepickerModule } from 'stk-datepicker';
 
 import { tap } from 'rxjs/operators';
 
@@ -16,9 +15,8 @@ import { tap } from 'rxjs/operators';
   templateUrl: './branch.component.html',
   styleUrls: ['./branch.component.scss']
 })
-export class BranchComponent implements OnInit {
+export class BranchComponent extends LazyBase implements OnInit, OnChanges {
 
-  @Input() renderInfo: ResourceInfo;
   group: FormGroup = new FormGroup({});
 
   config = {
@@ -34,12 +32,16 @@ export class BranchComponent implements OnInit {
   };
 
   constructor(
-    private openapiService: OpenapiService,
-    private halService: HalService
-  ) { }
+    openapiService: OpenapiService,
+    halService: HalService
+  ) { super(openapiService, halService); }
 
   ngOnInit(): void {
-    this.halService.getResource(this.renderInfo.href).pipe(tap(console.log));
+    // this.halService.getResource(this.renderInfo.href).pipe(tap(console.log));
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    super.ngOnChanges(changes);
   }
 
 }

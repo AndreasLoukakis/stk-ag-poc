@@ -18,7 +18,7 @@ export class ApplicationComponent implements OnInit {
 
   resourceData$: Observable<{[key: string]: ResourceProperty}>;
 
-  propPlaceholders: string[] = [
+  templatePlaceholders: string[] = [
     'channel', 'branch', 'branchOther', 'loanType', 'consumerProduct'
   ];
 
@@ -28,7 +28,7 @@ export class ApplicationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.resourceData$ = this.hal.getFormatedResource(this.href, this.propPlaceholders);
+    this.resourceData$ = this.hal.getFormatedResource(this.href, this.templatePlaceholders);
   }
 
 }
