@@ -1,5 +1,6 @@
 import { Component, OnInit, NgModule, Input } from '@angular/core';
 import { ResourceInfo } from './../../../models';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
   templateUrl: './fallback.component.html',
@@ -15,5 +16,6 @@ export class FallbackComponent implements OnInit {
   ngOnInit(): void {
   }
 }
+
 
 

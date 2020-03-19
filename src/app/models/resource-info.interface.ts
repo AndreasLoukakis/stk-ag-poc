@@ -4,5 +4,9 @@ export interface ResourceInfo {
   propertyName: string;
   currieName?: string;
   href?: string;
-  values?: string;
+  values?: {
+    propertyName: string;
+    href: string;
+    currieName: string;
+  };
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { LazyBase } from './../lazy-base';
 import { OpenapiService } from './../../../services/openapi.service';
 import { HalService } from './../../../services/hal.service';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
   selector: 'app-channel',
@@ -10,12 +11,18 @@ import { HalService } from './../../../services/hal.service';
 })
 export class ChannelComponent extends LazyBase implements OnInit {
 
+  properties: ['id', 'name'];
+  resources: [];
+
   constructor(
     openapiService: OpenapiService,
     halService: HalService
   ) { super(openapiService, halService); }
 
-  ngOnInit(): void {
-  }
-
 }
+@NgModule({
+  declarations: [ChannelComponent],
+  imports: [SharedModule]
+})
+class ChannelModule {}
+

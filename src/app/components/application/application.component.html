@@ -1,9 +1,15 @@
-<ng-template appRenderer [renderInfo$]="(resourceData$ | async)?.channel.resourceInfo"></ng-template>
-<ng-template appRenderer [renderInfo$]="(resourceData$ | async)?.branch.resourceInfo"></ng-template>
-<ng-template appRenderer [renderInfo$]="(resourceData$ | async)?.branchOther.resourceInfo"></ng-template>
-<ng-template appRenderer [renderInfo$]="(resourceData$ | async)?.loanType.resourceInfo"></ng-template>
-<ng-template appRenderer [renderInfo$]="(resourceData$ | async)?.consumerProduct.resourceInfo"></ng-template>
+<div debug>
+    <button (click)="initData()" class="pf-c-button pf-m-secondary" type="button">Trigger get</button>
+</div>
+<ng-container *ngIf="(resourceData$ | async)?.resources as resources">
+    <ng-template appRenderer [renderInfo]="resources.channel"></ng-template>
+    <ng-template appRenderer [renderInfo]="resources.branch"></ng-template>
+    <ng-template appRenderer [renderInfo]="resources.branchOther"></ng-template>
+    <ng-template appRenderer [renderInfo]="resources.loanType"></ng-template>
+    <ng-template appRenderer [renderInfo]="resources.consumerProduct"></ng-template>
+</ng-container>
 <div debug class="explanation">
     <h3>Application component</h3>
-    <p>Someone rendered me and passed me a resource name. I know my properties and if they are simple types or resources and have placeholders for that, curries will define component to instantiate for each property.</p>
+    <p>Someone rendered me and passed me a resource name. I just know the names of the properties I am expecting and that they are resouces.</p>
+    <pre><strong>application cmp resources data:</strong>{{resourceData$ | async | json}}</pre>
 </div>

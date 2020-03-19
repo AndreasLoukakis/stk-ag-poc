@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ResourceProperty } from './../models';
+import { ResourceInfo, ResourceData, ResourceDataValues } from './../models';
 
 
 @Injectable({
@@ -15,23 +15,46 @@ export class HalService {
 
   constructor(private http: HttpClient) { }
 
+  private proxyUrl(url: string): string {
+    return url.replace('https://localhost:44319/', '/api/').replace('https://localhost:4200/', '/api/');
+  }
+
   getResource(href: string): Observable<any> {
+    // const viaProxy = this.proxyUrl(href);
     this.headers = this.headers.set('Accept', 'application/hal+json');
-    const rewrittenUrl = href.replace('https://localhost:44319/', '/api/');
-    return this.http.get(rewrittenUrl, {headers: this.headers});
+    return this.http.get(href, {headers: this.headers});
   }
 
-  getFormatedResource(href: string, props): Observable<{[key: string]: ResourceProperty}> {
-    return this.getResource(href).pipe(map(response => this.formatResource(response, props)));
+  getResourceValues(values: {href: string}): Observable<ResourceDataValues> {
+    return this.http.get<ResourceDataValues>(values.href, {headers: this.headers.set('Accept', 'application/hal+json')});
   }
 
-  formatResource(response: any, props): {[key: string]: ResourceProperty} {
+  /**
+   *
+   * @param resourceInfo: ResourceInfo, using href and values.href if applicable
+   * @param resources : Expected resources by the template
+   * @param properties : Expected properties by the template
+   */
+  getFormatedResource(
+    resourceInfo: ResourceInfo,
+    resources: string[],
+    properties: string[] = []): Observable<ResourceData> {
+      return this.getResource(resourceInfo.href).pipe(
+        map(response => this.formatResource(response, resources, properties))
+      );
+  }
 
-    const lowerCasedProps = props.map(prop => prop.toLowerCase());
+  /**
+   *
+   * @param response: any
+   * @param resources: string[]
+   */
+  formatResource(response: any, resources, properties): ResourceData {
 
-    const allProperties = Object.keys(response).reduce((all, current) => {
-      if (props.includes(current)) {
-        all[current] = this.initPropData(current);
+    const lowerCasedProps = resources.map(resource => resource.toLowerCase());
+    const onwData = Object.keys(response).reduce((all, cur) => {
+      if (properties.includes(cur)) {
+        all[cur] = response[cur];
       }
       return all;
     }, {});
@@ -48,21 +71,21 @@ export class HalService {
     const propValues = this.calculateValueLinks(valueLinkKeys, response);
 
     return propLinks.reduce((links, cur) => {
-      if (Array.isArray(response._links[cur])) {
+      if (response._links[cur] && Array.isArray(response._links[cur])) {
         response._links[cur].map(valueLink => {
           const propName = this.toCamelCase(valueLink.name);
-          if (links[propName]) {
-            this.makeResourceData(valueLink, propValues, propName, cur, response, links[propName]);
-          }
+          links.resources[propName] = this.makeResourceData(valueLink, propValues, propName, cur, response);
         });
-      } else {
+      } else if (response._links[cur]) {
         const propName = this.toCamelCase(response._links[cur].name);
-        if (links[propName]) {
-          this.makeResourceData(response._links[cur], propValues, propName, cur, response, links[propName]);
-        }
+        links.resources[propName] = this.makeResourceData(response._links[cur], propValues, propName, cur, response);
       }
       return links;
-    }, allProperties);
+    },
+    {
+      properties: onwData,
+      resources: {}
+    });
   }
 
   private calculateValueLinks(valueLinkKeys, response) {
@@ -86,32 +109,21 @@ export class HalService {
     }, {});
   }
 
-  private makeResourceData(item, propValues, propName, cur, response, prop) {
-    prop.isResource = true;
-    prop.resourceInfo.currieName = cur;
-    prop.resourceInfo.href = item.href;
-    prop.resourceInfo.propertyName = propName;
+  private makeResourceData(item, propValues, propName, cur, response) {
+    const prop: ResourceInfo = {
+      currieName: cur,
+      href: item.href,
+      propertyName: propName
+    };
     if (propValues[propName.toLowerCase()]) {
-      prop.resourceInfo.values = propValues[propName.toLowerCase()];
+      prop.values = propValues[propName.toLowerCase()];
     }
     if (response[propName] && response[propName].id) {
-      prop.resourceInfo.id = response[propName].id;
+      prop.id = response[propName].id;
     }
     return prop;
   }
 
-
-  private initPropData(prop: string): ResourceProperty {
-    return {
-      isResource: false,
-      propertyInfo: {
-        propertyName: prop
-      },
-      resourceInfo: {
-        propertyName: prop,
-      }
-    };
-  }
 
   private toCamelCase(str) {
     return `${str.substr( 0, 1 ).toLowerCase()}${str.substr( 1 )}`;

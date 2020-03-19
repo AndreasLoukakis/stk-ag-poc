@@ -10,6 +10,7 @@
   ],
   "include": [
     "src/**/*.d.ts",
-    "src/app/components/lazy/**/*.component.ts"
+    "src/app/components/lazy/**/*.component.ts",
+    "src/app/components/lazy/**/*.spec.ts"
   ]
 }

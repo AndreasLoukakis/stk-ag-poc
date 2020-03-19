@@ -1,16 +1,21 @@
-import { OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Observable } from 'rxjs';
+import { OnInit, Input, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 
 import { OpenapiService } from './../../services/openapi.service';
 import { HalService } from './../../services/hal.service';
 
-import { ResourceInfo, ResourceProperty } from './../../models';
+import { ResourceInfo, ResourceData, ResourceDataValues } from './../../models';
 
-export class LazyBase implements OnInit, OnChanges {
+export abstract class LazyBase implements OnInit, OnChanges, OnDestroy {
 
   @Input() renderInfo: ResourceInfo;
-  resourceData$: Observable<{[key: string]: ResourceProperty}>;
-  templatePlaceholders: string[];
+  // using Subject instead of Observable in rendering, to avoid flicker on data re-fetch
+  resourceData$: Subject<ResourceData> = new Subject();
+  resourceDataValues$: Subject<ResourceDataValues> = new Subject();
+
+  resources: string[];
+  properties: string[];
+  subs: Subscription[] = [];
 
   constructor(
     protected openapiService: OpenapiService,
@@ -18,18 +23,40 @@ export class LazyBase implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
-    // this.halService.getResource(this.renderInfo.href);
+    if (this.renderInfo) {
+      this.initData();
+    }
   }
 
+  /**
+   *
+   * @param changes
+   * This will NOT fire if there is no template binding to the input!
+   * We can go around this with accessors or manually triggering ngOnChanges
+   */
   ngOnChanges(changes: SimpleChanges) {
-    console.log('On changes fired ', changes.renderInfo);
     if (changes.renderInfo &&
         changes.renderInfo.currentValue &&
         changes.renderInfo.currentValue !== changes.renderInfo.previousValue) {
-            console.log('Callinng resourcedata from base ', this.renderInfo.href);
-            this.resourceData$ = this.halService.getFormatedResource(this.renderInfo.href, this.templatePlaceholders);
+            this.initData();
+    }
+  }
+
+  ngOnDestroy() {
+    this.subs.map(sub => sub.unsubscribe());
+  }
+
+  initData() {
+    this.subs.push(
+      this.halService.getFormatedResource(this.renderInfo, this.resources, this.properties)
+        .subscribe(data => this.resourceData$.next(data))
+    );
+    if (this.renderInfo.values) {
+      this.subs.push(
+        this.halService.getResourceValues(this.renderInfo.values)
+          .subscribe(data => this.resourceDataValues$.next(data))
+      );
     }
   }
 
 }
-

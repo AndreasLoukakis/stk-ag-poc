@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ResourceInfo } from './../../../models';
 
 @Component({
   selector: 'app-deal',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DealComponent implements OnInit {
 
-  applicationResourceName: string;
+  resourceInfo: ResourceInfo = {
+    href: 'http://apigateway-trunk.relationalfs.com/',
+    propertyName: ''
+  };
+
   constructor() { }
 
   ngOnInit(): void {

@@ -1,1 +1,9 @@
 <div>channel componennt</div>
+<div debug class="explanation">
+    <div><strong>Channel cmp render info</strong>
+        <pre>{{renderInfo | json}}</pre>
+    </div>
+    <div><strong>Own resource</strong>
+        <pre>{{(resourceData$ | async)?.properties | json}}</pre>
+    </div>
+</div>

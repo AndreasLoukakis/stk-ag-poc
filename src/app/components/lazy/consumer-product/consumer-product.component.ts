@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { LazyBase } from './../lazy-base';
 import { OpenapiService } from './../../../services/openapi.service';
 import { HalService } from './../../../services/hal.service';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
   selector: 'app-consumer-product',
@@ -19,3 +20,9 @@ export class ConsumerProductComponent extends LazyBase implements OnInit {
   }
 
 }
+@NgModule({
+  declarations: [ConsumerProductComponent],
+  imports: [SharedModule],
+  providers: []
+})
+class BranchModule {}

@@ -1,6 +1,6 @@
 import {
   Directive, Input, ViewContainerRef, ComponentFactoryResolver,
-  ComponentRef, OnChanges, SimpleChanges
+  ComponentRef, OnChanges, SimpleChanges, OnInit
 } from '@angular/core';
 import { ResourceInfo, LazyInterface } from './../models';
 import { Observable } from 'rxjs';
@@ -10,9 +10,9 @@ import { ComponentMapperService } from './../services/component-mapper.service';
 @Directive({
   selector: '[appRenderer]'
 })
-export class RendererDirective implements OnChanges {
+export class RendererDirective implements OnChanges, OnInit {
 
-  @Input() renderInfo$: Observable<ResourceInfo>;
+  @Input() renderInfo: ResourceInfo;
   component: ComponentRef<LazyInterface>;
 
   constructor(
@@ -21,14 +21,20 @@ export class RendererDirective implements OnChanges {
     private mapper: ComponentMapperService
   ) { }
 
+  ngOnInit() {
+    // if (this.renderInfo) {
+    //   this.getComponent(this.mapper.getComponentName(this.renderInfo.currieName), this.renderInfo);
+    // }
+  }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.component) {
-      this.component.instance.renderInfo = changes.renderInfo$.currentValue;
-    } else {
-      if (changes.renderInfo$ && changes.renderInfo$.currentValue) {
-        const name = changes.renderInfo$.currentValue?.currieName;
-        this.getComponent(this.mapper.getComponentName(name), changes.renderInfo$.currentValue);
+    console.log('changes in directive ', changes, this.component);
+    if (changes.renderInfo && this.component) {
+      this.component.instance.renderInfo = changes.renderInfo.currentValue;
+    } else if (!this.component && !this.component?.instance) {
+      if (changes.renderInfo && changes.renderInfo.currentValue) {
+        const name = changes.renderInfo.currentValue?.currieName;
+        this.getComponent(this.mapper.getComponentName(name), changes.renderInfo.currentValue);
       }
     }
   }

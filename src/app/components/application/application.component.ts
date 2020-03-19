@@ -1,35 +1,28 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Subscription, Subject } from 'rxjs';
+
+import { ResourceData } from './../../models';
 
 import { HalService } from './../../services/hal.service';
 import { OpenapiService  } from './../../services/openapi.service';
-import { ResourceProperty } from './../../models';
+import { LazyBase } from './../lazy/lazy-base';
 
 @Component({
   selector: 'app-application',
   templateUrl: './application.component.html',
   styleUrls: ['./application.component.scss']
 })
-export class ApplicationComponent implements OnInit {
+export class ApplicationComponent extends LazyBase {
 
-  @Input() resourceName: string;
-  @Input() href: string;
-
-  resourceData$: Observable<{[key: string]: ResourceProperty}>;
-
-  templatePlaceholders: string[] = [
+  resources: string[] = [
     'channel', 'branch', 'branchOther', 'loanType', 'consumerProduct'
   ];
+  properties: [];
 
   constructor(
-    private hal: HalService,
-    private openapi: OpenapiService
-  ) { }
-
-  ngOnInit(): void {
-    this.resourceData$ = this.hal.getFormatedResource(this.href, this.templatePlaceholders);
-  }
+    protected hal: HalService,
+    protected openapi: OpenapiService
+  ) { super(openapi, hal); }
 
 }
 
