@@ -6,4 +6,7 @@
     <div><strong>Own resource</strong>
         <pre>{{(resourceData$ | async)?.properties | json}}</pre>
     </div>
+    <div><strong>Values</strong>
+        <pre>{{(resourceDataValues$ | async) | json}}</pre>
+    </div>
 </div>

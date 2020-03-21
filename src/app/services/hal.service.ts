@@ -26,11 +26,10 @@ export class HalService {
   }
 
   getResourceValues(values: {href: string}, currieName: string): Observable<any> {
-    this.headers = this.headers.set('Accept', 'application/hal+json');
     return this.http.get<ResourceDataValues>(
       // this.proxyUrl(values.href),
       values.href,
-      {headers: this.headers})
+      {headers: this.headers.set('Accept', 'application/hal+json')})
       .pipe(map(data => this.transformValues(data, currieName)));
   }
 
@@ -75,7 +74,7 @@ export class HalService {
     }, {});
 
     /** resources */
-    const linkKeys: string[] = Object.keys(response._links);
+    const linkKeys: string[] = response._links ? Object.keys(response._links) : [];
     const valueLinkKeys = linkKeys.filter(link => link.endsWith('.values'));
     const propLinks = linkKeys.filter(link => {
       const name = response._links[link][0]?.name ? response._links[link][0].name :

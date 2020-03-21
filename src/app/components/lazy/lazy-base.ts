@@ -52,7 +52,7 @@ export abstract class LazyBase implements OnInit, OnChanges, OnDestroy {
   }
 
   initData() {
-    if (this.resources.length > 0) {
+    if (this.resources.length > 0 || this.properties.length > 0) {
       this.subs.push(
         this.halService.getFormatedResource(this.renderInfo, this.resources, this.properties)
           .subscribe(data => this.resourceData$.next(data))

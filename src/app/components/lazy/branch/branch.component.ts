@@ -22,9 +22,9 @@ export class BranchComponent extends LazyBase implements OnInit, OnChanges {
 
   config = {
     title: 'Branch',
-    value: '1',
+    value: 2,
     required: false,
-    name: 'fooModel',
+    name: 'branch',
     x_disabled: false,
     x_lookupItems$: this.resourceDataValues$.pipe(map(values => values.items))
   };
