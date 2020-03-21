@@ -15,9 +15,9 @@ export class HalService {
 
   constructor(private http: HttpClient) { }
 
-  private proxyUrl(url: string): string {
-    return url.replace('https://localhost:44319/', '/api/').replace('https://localhost:4200/', '/api/');
-  }
+  // private proxyUrl(url: string): string {
+  //   return url.replace('https://localhost:44319/', '/api/').replace('https://localhost:4200/', '/api/');
+  // }
 
   getResource(href: string): Observable<any> {
     // const viaProxy = this.proxyUrl(href);
@@ -25,8 +25,23 @@ export class HalService {
     return this.http.get(href, {headers: this.headers});
   }
 
-  getResourceValues(values: {href: string}): Observable<ResourceDataValues> {
-    return this.http.get<ResourceDataValues>(values.href, {headers: this.headers.set('Accept', 'application/hal+json')});
+  getResourceValues(values: {href: string}, currieName: string): Observable<any> {
+    this.headers = this.headers.set('Accept', 'application/hal+json');
+    return this.http.get<ResourceDataValues>(
+      // this.proxyUrl(values.href),
+      values.href,
+      {headers: this.headers})
+      .pipe(map(data => this.transformValues(data, currieName)));
+  }
+
+  transformValues(data, currieName): ResourceDataValues {
+    return {
+      items: data._embedded[currieName],
+      next: data?.links?.next,
+      prev: data?.links?.prev,
+      first: data?.links?.first,
+      last: data?.links?.last
+    };
   }
 
   /**

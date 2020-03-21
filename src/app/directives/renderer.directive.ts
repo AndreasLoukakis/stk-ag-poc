@@ -27,11 +27,12 @@ export class RendererDirective implements OnChanges, OnInit {
     // }
   }
 
+  // maybe renderInfo should have a setter instead ?
   ngOnChanges(changes: SimpleChanges) {
-    console.log('changes in directive ', changes, this.component);
-    if (changes.renderInfo && this.component) {
+    if (!changes.renderInfo) { return; }
+    if (this.component && this.component.instance) {
       this.component.instance.renderInfo = changes.renderInfo.currentValue;
-    } else if (!this.component && !this.component?.instance) {
+    } else {
       if (changes.renderInfo && changes.renderInfo.currentValue) {
         const name = changes.renderInfo.currentValue?.currieName;
         this.getComponent(this.mapper.getComponentName(name), changes.renderInfo.currentValue);

@@ -9,7 +9,7 @@ import { ResourceInfo } from './../../../models';
 export class DealComponent implements OnInit {
 
   resourceInfo: ResourceInfo = {
-    href: 'http://apigateway-trunk.relationalfs.com/',
+    href: 'http://apigateway-trunk.relationalfs.com/deals/1/application',
     propertyName: ''
   };
 

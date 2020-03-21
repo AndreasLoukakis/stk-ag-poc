@@ -11,8 +11,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 })
 export class ChannelComponent extends LazyBase implements OnInit {
 
-  properties: ['id', 'name'];
-  resources: [];
+  properties = ['id', 'name'];
+  resources = [];
 
   constructor(
     openapiService: OpenapiService,

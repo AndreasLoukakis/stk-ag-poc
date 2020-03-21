@@ -1,9 +1,9 @@
 import { ResourceInfo, PropertyInfo } from '.';
 
 export interface ResourceDataValues {
-  pageIndex: number;
-  pageSize: number;
-  recordCount: number;
-  totalPages: number;
-  items: any[];
+  next?: string;
+  prev?: string;
+  first?: string;
+  last?: string;
+  items: { [key: string]: string | number }[];
 }

@@ -11,13 +11,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
 })
 export class ConsumerProductComponent extends LazyBase implements OnInit {
 
+  resources = [];
+  properties = [];
+
   constructor(
     openapiService: OpenapiService,
     halService: HalService
   ) { super(openapiService, halService); }
 
-  ngOnInit(): void {
-  }
 
 }
 @NgModule({

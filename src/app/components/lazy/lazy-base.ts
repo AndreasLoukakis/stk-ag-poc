@@ -1,10 +1,12 @@
 import { OnInit, Input, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { OpenapiService } from './../../services/openapi.service';
 import { HalService } from './../../services/hal.service';
 
 import { ResourceInfo, ResourceData, ResourceDataValues } from './../../models';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 export abstract class LazyBase implements OnInit, OnChanges, OnDestroy {
 
@@ -16,6 +18,8 @@ export abstract class LazyBase implements OnInit, OnChanges, OnDestroy {
   resources: string[];
   properties: string[];
   subs: Subscription[] = [];
+
+  valuesCallback: (item: any) => any = (item) => item;
 
   constructor(
     protected openapiService: OpenapiService,
@@ -36,9 +40,10 @@ export abstract class LazyBase implements OnInit, OnChanges, OnDestroy {
    */
   ngOnChanges(changes: SimpleChanges) {
     if (changes.renderInfo &&
+        !changes.renderInfo.isFirstChange &&
         changes.renderInfo.currentValue &&
         changes.renderInfo.currentValue !== changes.renderInfo.previousValue) {
-            this.initData();
+          this.initData();
     }
   }
 
@@ -47,15 +52,25 @@ export abstract class LazyBase implements OnInit, OnChanges, OnDestroy {
   }
 
   initData() {
-    this.subs.push(
-      this.halService.getFormatedResource(this.renderInfo, this.resources, this.properties)
-        .subscribe(data => this.resourceData$.next(data))
-    );
+    if (this.resources.length > 0) {
+      this.subs.push(
+        this.halService.getFormatedResource(this.renderInfo, this.resources, this.properties)
+          .subscribe(data => this.resourceData$.next(data))
+      );
+    }
+
     if (this.renderInfo.values) {
       this.subs.push(
-        this.halService.getResourceValues(this.renderInfo.values)
-          .subscribe(data => this.resourceDataValues$.next(data))
-      );
+        this.halService.getResourceValues(this.renderInfo.values, this.renderInfo.currieName)
+          .pipe(map(data => {
+            // this is per component instance transformation
+            return data && data.items ?
+              {...data, items: data.items.map(this.valuesCallback)} : data;
+          }))
+          .subscribe(data => {
+            return this.resourceDataValues$.next(data);
+          })
+        );
     }
   }
 

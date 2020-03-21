@@ -9,15 +9,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
   templateUrl: './loan-type.component.html',
   styleUrls: ['./loan-type.component.scss']
 })
-export class LoanTypeComponent extends LazyBase implements OnInit {
+export class LoanTypeComponent extends LazyBase {
 
+  resources = [];
+  properties = ['id', 'code', 'description', 'disabled'];
   constructor(
     openapiService: OpenapiService,
     halService: HalService
   ) { super(openapiService, halService); }
-
-  ngOnInit(): void {
-  }
 
 }
 
