@@ -1,7 +1,7 @@
-import { OnInit, Input, OnChanges, SimpleChanges, OnDestroy, AfterContentInit, AfterViewInit } from '@angular/core';
+import { OnInit, Input, OnChanges, SimpleChanges, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subject, Subscription, interval } from 'rxjs';
-import { map, debounce } from 'rxjs/operators';
+import { map, debounce, take } from 'rxjs/operators';
 
 import { OpenapiService } from './../../services/openapi.service';
 import { HalService } from './../../services/hal.service';
@@ -12,6 +12,8 @@ import { FieldConfig } from 'stk-forms';
 export abstract class LazyBase implements OnInit, OnChanges, OnDestroy {
 
   @Input() renderInfo: ResourceInfo;
+  @Output() resourceUpdated: EventEmitter<any> = new EventEmitter();
+
   // using Subject instead of Observable in rendering, to avoid flicker on data re-fetch
   resourceData$: Subject<ResourceData> = new Subject();
   resourceDataValues$: Subject<ResourceDataValues> = new Subject();
@@ -134,6 +136,16 @@ export abstract class LazyBase implements OnInit, OnChanges, OnDestroy {
       name: meta.name,
     };
     this.config = config;
+  }
+
+  updateState(e: {value: any, formData: any}) {
+    const newVal = e.value;
+    console.log('updating val ', newVal);
+    this.halService.updateResource(
+      this.renderInfo.href,
+      this.openapiService.getMeta(this.renderInfo.propertyName).valueProp,
+      newVal
+    ).pipe(take(1)).subscribe(this.resourceUpdated.emit);
   }
 
 }

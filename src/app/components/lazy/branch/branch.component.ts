@@ -26,11 +26,6 @@ export class BranchComponent extends LazyBase implements OnInit, OnChanges {
     value: item.id
   })
 
-  updateState(e) {
-    console.log('trigger', e);
-  }
-
-
 }
 
 @NgModule({

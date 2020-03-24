@@ -1,4 +1,4 @@
-<stk-simple-select [config]="config" [group]="formgroup"></stk-simple-select>
+<stk-simple-select (inputCallsResourceUpdate)="updateState($event)" [config]="config" [group]="formgroup"></stk-simple-select>
 <ng-container *ngIf="(resourceData$ | async)?.resources as resources">
     <ng-template appRenderer [renderInfo]="resources.consumerProduct"></ng-template>
 </ng-container>

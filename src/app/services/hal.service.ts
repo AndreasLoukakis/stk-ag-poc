@@ -15,9 +15,12 @@ export class HalService {
 
   constructor(private http: HttpClient) { }
 
-  // private proxyUrl(url: string): string {
-  //   return url.replace('https://localhost:44319/', '/api/').replace('https://localhost:4200/', '/api/');
-  // }
+  updateResource( url, prop, val) {
+    let headers = this.headers.set('Accept', 'application/hal+json');
+    headers = headers.set('Content-Type', 'application/json');
+    console.log('trigger put');
+    return this.http.put(url, {[prop]: val}, {headers});
+  }
 
   getResource(href: string): Observable<any> {
     // const viaProxy = this.proxyUrl(href);
