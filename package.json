@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "ngcc",
-    "openapi": "ng-openapi-gen --input https://localhost:44319/meta/v1/swagger.json --output ./src/app/openapi"
+    "openapi": "ng-openapi-gen --input http://apigateway-trunk.relationalfs.com/meta/v1/swagger.json --output ./src/app/openapi"
   },
   "private": true,
   "dependencies": {

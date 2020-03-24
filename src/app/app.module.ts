@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { ApplicationComponent } from './components/application/application.component';
 import { DealComponent } from './components/wrapers/deal/deal.component';
 
-import { RendererDirective } from './directives/renderer.directive';
 import { FallbackComponent } from './components/lazy/fallback/fallback.component';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { FallbackComponent } from './components/lazy/fallback/fallback.component
     AppComponent,
     ApplicationComponent,
     DealComponent,
-    RendererDirective,
     FallbackComponent,
   ],
   imports: [

@@ -19,6 +19,12 @@ export class ChannelComponent extends LazyBase implements OnInit {
     halService: HalService
   ) { super(openapiService, halService); }
 
+  // callback to format options
+  valuesCallback = (item) => ({
+    name: item.name,
+    value: item.id
+  })
+
 }
 @NgModule({
   declarations: [ChannelComponent],

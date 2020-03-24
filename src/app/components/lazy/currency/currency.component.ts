@@ -5,29 +5,25 @@ import { HalService } from './../../../services/hal.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
-  selector: 'app-loan-type',
-  templateUrl: './loan-type.component.html',
-  styleUrls: ['./loan-type.component.scss']
+  templateUrl: './currency.component.html',
+  styleUrls: ['./currency.component.scss']
 })
-export class LoanTypeComponent extends LazyBase {
+export class CurrencyComponent extends LazyBase implements OnInit {
 
-  resources = ['consumerProduct'];
-  properties = ['id', 'name'];
+  resources = ['productCategory', 'factoryProduct', 'currency'];
+  properties = ['id'];
+
   constructor(
     openapiService: OpenapiService,
     halService: HalService
   ) { super(openapiService, halService); }
 
-  valuesCallback = (item) => ({
-    name: item.name,
-    value: item.id
-  })
 
 }
-
 @NgModule({
-  declarations: [LoanTypeComponent],
+  declarations: [CurrencyComponent],
   imports: [SharedModule],
   providers: []
 })
-class LoantypeModule {}
+class CurrenncyModule {}
+

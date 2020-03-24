@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResourceInfo } from './../../../models';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-deal',
@@ -10,7 +11,8 @@ export class DealComponent implements OnInit {
 
   resourceInfo: ResourceInfo = {
     href: 'http://apigateway-trunk.relationalfs.com/deals/1/application',
-    propertyName: ''
+    propertyName: '',
+    currieName: '',
   };
 
   constructor() { }

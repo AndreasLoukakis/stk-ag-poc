@@ -11,8 +11,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 })
 export class ConsumerProductComponent extends LazyBase implements OnInit {
 
-  resources = [];
-  properties = [];
+  resources = ['productCategory', 'factoryProduct', 'currency'];
+  properties = ['id'];
 
   constructor(
     openapiService: OpenapiService,
@@ -26,4 +26,4 @@ export class ConsumerProductComponent extends LazyBase implements OnInit {
   imports: [SharedModule],
   providers: []
 })
-class BranchModule {}
+class ConsumerProductModule {}
