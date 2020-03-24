@@ -1,0 +1,12 @@
+<ng-container *ngIf="(resourceData$ | async)?.resources as resources">
+    <ng-template appRenderer [renderInfo]="resources.productCategory"></ng-template>
+    <ng-template appRenderer [renderInfo]="resources.factoryProduct"></ng-template>
+</ng-container>
+<div debug class="explanation">
+    <div><strong>Morgage product cmp render info</strong>
+        <pre>{{renderInfo | json}}</pre>
+    </div>
+    <div><strong>Own resource</strong>
+        <pre>{{(resourceData$ | async)?.properties | json}}</pre>
+    </div>
+</div>

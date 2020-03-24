@@ -15,7 +15,7 @@ import { LazyBase } from './../lazy/lazy-base';
 export class ApplicationComponent extends LazyBase {
 
   resources: string[] = [
-    'channel', 'branch', 'branchOther', 'loanType', 'consumerProduct'
+    'channel', 'branch', 'branchOther', 'loanType', 'consumerProduct', 'morgateProduct'
   ];
   properties: [];
 
