@@ -1,4 +1,7 @@
-<stk-simple-select [config]="config" [group]="formgroup"></stk-simple-select>
+<stk-simple-select 
+    (inputCallsResourceUpdate)="updateState($event)" 
+    [config]="config" [group]="formgroup">
+</stk-simple-select>
 <div debug class="explanation">
     <div><strong>Product category cmp render info</strong>
         <pre>{{renderInfo | json}}</pre>

@@ -148,4 +148,8 @@ export abstract class LazyBase implements OnInit, OnChanges, OnDestroy {
     ).pipe(take(1)).subscribe(this.resourceUpdated.emit);
   }
 
+  onResourceUpdate() {
+    this.initData();
+  }
+
 }

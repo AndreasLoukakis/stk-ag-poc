@@ -1,6 +1,6 @@
 <stk-simple-select (inputCallsResourceUpdate)="updateState($event)" [config]="config" [group]="formgroup"></stk-simple-select>
 <ng-container *ngIf="(resourceData$ | async)?.resources as resources">
-    <ng-template appRenderer [renderInfo]="resources.consumerProduct"></ng-template>
+    <ng-template (resourceUpdated)="onResourceUpdate()" appRenderer [renderInfo]="resources.consumerProduct"></ng-template>
 </ng-container>
 <div debug class="explanation">
     <div><strong>Loan type cmp render info</strong>
