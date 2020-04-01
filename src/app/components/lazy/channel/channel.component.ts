@@ -1,7 +1,6 @@
-import { Component, OnInit, NgModule } from '@angular/core';
-import { LazyBase } from './../lazy-base';
-import { OpenapiService } from './../../../services/openapi.service';
-import { HalService } from './../../../services/hal.service';
+import { Component, NgModule } from '@angular/core';
+import { ComplexBaseComponent } from './../../../stk/abstract/complex-base-component';
+import { ApiService } from '../../../stk/services/api.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
@@ -9,26 +8,17 @@ import { SharedModule } from 'src/app/shared/shared.module';
   templateUrl: './channel.component.html',
   styleUrls: ['./channel.component.scss']
 })
-export class ChannelComponent extends LazyBase implements OnInit {
-
-  properties = ['id', 'name'];
-  resources = [];
+export class ChannelComponent extends ComplexBaseComponent {
 
   constructor(
-    openapiService: OpenapiService,
-    halService: HalService
-  ) { super(openapiService, halService); }
-
-  // callback to format options
-  valuesCallback = (item) => ({
-    name: item.name,
-    value: item.id
-  })
-
+    api: ApiService
+  ) { super(api); }
 }
+
 @NgModule({
   declarations: [ChannelComponent],
-  imports: [SharedModule]
+  imports: [SharedModule],
+  providers: []
 })
 class ChannelModule {}
 

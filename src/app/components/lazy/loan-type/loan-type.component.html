@@ -1,12 +1,23 @@
-<stk-simple-select (inputCallsResourceUpdate)="updateState($event)" [config]="config" [group]="formgroup"></stk-simple-select>
-<ng-container *ngIf="(resourceData$ | async)?.resources as resources">
-    <ng-template (resourceUpdated)="onResourceUpdate()" appRenderer [renderInfo]="resources.consumerProduct"></ng-template>
+<ng-container *ngIf="renderData$ | async as renderData">
+    <ng-container *ngFor="let config of renderData.formElements | keyvalue">
+        <stk-simple-select
+            (selectStateChange)="patchAndPropagate($event)"
+            [config]="config.value"
+            [group]="formgroup">
+        </stk-simple-select>
+    </ng-container>
 </ng-container>
+
+<!-- <ng-container *ngIf="(subResourceInfo$ | async) as resources">
+    <pre>{{resources | json}}</pre>
+    <ng-template appRenderer [renderInfo]="resources.consumerProduct"></ng-template>
+</ng-container> -->
+
 <div debug class="explanation">
-    <div><strong>Loan type cmp render info</strong>
+    <div>
         <pre>{{renderInfo | json}}</pre>
     </div>
     <div><strong>Own resource</strong>
-        <pre>{{(resourceData$ | async)?.properties | json}}</pre>
+        <pre>{{(renderData$ | async) | json}}</pre>
     </div>
 </div>

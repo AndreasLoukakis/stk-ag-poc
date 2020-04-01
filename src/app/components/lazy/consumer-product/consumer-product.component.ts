@@ -1,23 +1,19 @@
 import { Component, OnInit, NgModule } from '@angular/core';
-import { LazyBase } from './../lazy-base';
-import { OpenapiService } from './../../../services/openapi.service';
-import { HalService } from './../../../services/hal.service';
+import { ComplexBaseComponent } from './../../../stk/abstract/complex-base-component';
+import { ApiService } from '../../../stk/services/api.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
   selector: 'app-consumer-product',
   templateUrl: './consumer-product.component.html',
-  styleUrls: ['./consumer-product.component.scss']
+  styleUrls: ['./consumer-product.component.scss'],
+  providers: [{provide: ComplexBaseComponent, useExisting: ConsumerProductComponent}]
 })
-export class ConsumerProductComponent extends LazyBase implements OnInit {
-
-  resources = ['productCategory', 'factoryProduct', 'currency'];
-  properties = ['id'];
+export class ConsumerProductComponent extends ComplexBaseComponent {
 
   constructor(
-    openapiService: OpenapiService,
-    halService: HalService
-  ) { super(openapiService, halService); }
+    api: ApiService
+  ) { super(api); }
 
 
 }

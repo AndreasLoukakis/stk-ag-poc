@@ -1,12 +1,17 @@
-<stk-simple-select [config]="config" [group]="formgroup"></stk-simple-select>
+<ng-container *ngIf="renderData$ | async as renderData">
+    <ng-container *ngFor="let config of renderData.formElements | keyvalue">
+        <stk-simple-select
+            [config]="config.value"
+            [group]="formgroup">
+        </stk-simple-select>
+    </ng-container>
+</ng-container>
+
 <div debug class="explanation">
     <div><strong>Branch cmp render info</strong>
         <pre>{{renderInfo | json}}</pre>
     </div>
     <div><strong>Own resource</strong>
-        <pre>{{(resourceData$ | async)?.properties | json}}</pre>
-    </div>
-    <div><strong>Values</strong>
-        <pre>{{(resourceDataValues$ | async) | json}}</pre>
+        <pre>{{(renderData$ | async) | json}}</pre>
     </div>
 </div>

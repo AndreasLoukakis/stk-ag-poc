@@ -1,33 +1,26 @@
-import { Component, OnInit, NgModule } from '@angular/core';
-import { SharedModule } from './../../../shared/shared.module';
-import { OpenapiService } from './../../../services/openapi.service';
-import { HalService } from './../../../services/hal.service';
-import { LazyBase } from './../lazy-base';
+import { Component, NgModule, AfterViewInit } from '@angular/core';
+import { ComplexBaseComponent } from './../../../stk/abstract/complex-base-component';
+import { ApiService } from '../../../stk/services/api.service';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
   templateUrl: './product-category.component.html',
-  styleUrls: ['./product-category.component.scss']
+  styleUrls: ['./product-category.component.scss'],
+  providers: [{provide: ComplexBaseComponent, useExisting: ProductCategoryComponent}]
 })
-export class ProductCategoryComponent extends LazyBase implements OnInit {
-
-  resources = [];
-  properties = ['id', 'code', 'description', 'disabled', 'loanType'];
+export class ProductCategoryComponent extends ComplexBaseComponent implements AfterViewInit {
 
   constructor(
-    private hal: HalService,
-    private openapi: OpenapiService
-  ) { super(openapi, hal); }
+    api: ApiService
+  ) { super(api); }
 
-
-  valuesCallback = (item) => ({
-    name: item.description,
-    value: item.id
-  })
-
+  ngAfterViewInit() {
+    this.setContext();
+  }
 }
+
 @NgModule({
   declarations: [ProductCategoryComponent],
-  imports: [SharedModule],
-  providers: []
+  imports: [SharedModule]
 })
-class BranchModule {}
+class ProductCategoryModule {}

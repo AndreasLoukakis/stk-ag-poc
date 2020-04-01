@@ -5,9 +5,11 @@ export interface ResourceInfo {
   id?: number;
   propertyName?: string;
   currieName?: string;
+  classRef?: string;
+  valueProp?: string;
   href: string;
   formgroup?: FormGroup;
-  hasValues?: boolean;
+  meta?: { [prop: string]: any }; // subresource meta.
   values?: {
     propertyName?: string;
     href: string;

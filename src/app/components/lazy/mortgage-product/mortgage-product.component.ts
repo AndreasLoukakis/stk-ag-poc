@@ -1,25 +1,21 @@
 import { Component, OnInit, NgModule } from '@angular/core';
-import { LazyBase } from './../lazy-base';
-import { OpenapiService } from './../../../services/openapi.service';
-import { HalService } from './../../../services/hal.service';
+import { ComplexBaseComponent } from './../../../stk/abstract/complex-base-component';
+import { ApiService } from '../../../stk/services/api.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
   templateUrl: './mortgage-product.component.html',
-  styleUrls: ['./mortgage-product.component.scss']
+  styleUrls: ['./mortgage-product.component.scss'],
+  providers: [{provide: ComplexBaseComponent, useExisting: MortgageProductComponent}]
 })
-export class MortgageProductComponent extends LazyBase implements OnInit {
-
-  resources = ['productCategory', 'factoryProduct', 'currency'];
-  properties = ['id'];
+export class MortgageProductComponent extends ComplexBaseComponent {
 
   constructor(
-    openapiService: OpenapiService,
-    halService: HalService
-  ) { super(openapiService, halService); }
-
+    api: ApiService
+  ) { super(api); }
 
 }
+
 @NgModule({
   declarations: [MortgageProductComponent],
   imports: [SharedModule],

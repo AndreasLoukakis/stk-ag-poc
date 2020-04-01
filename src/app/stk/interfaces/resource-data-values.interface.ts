@@ -1,5 +1,3 @@
-import { ResourceInfo, PropertyInfo } from '.';
-
 export interface ResourceDataValues {
   next?: string;
   prev?: string;

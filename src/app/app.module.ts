@@ -27,7 +27,9 @@ import { FallbackComponent } from './components/lazy/fallback/fallback.component
     UiShellModule,
     SharedModule
   ],
-  providers: [Location, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [
+    Location, {provide: LocationStrategy, useClass: HashLocationStrategy},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

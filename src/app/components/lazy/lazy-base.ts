@@ -1,20 +1,20 @@
-import { OnInit, Input, OnChanges, SimpleChanges, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { OnInit, Input, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Subject, Subscription, interval } from 'rxjs';
-import { map, debounce, take } from 'rxjs/operators';
+import { Subject, Subscription } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
-import { OpenapiService } from './../../services/openapi.service';
-import { HalService } from './../../services/hal.service';
+import { OpenapiService } from '../../stk/services/openapi.service';
+import { HalService } from '../../stk/services/hal.service';
 
-import { ResourceInfo, ResourceData, ResourceDataValues, PreFieldConfig } from './../../models';
-import { FieldConfig } from 'stk-forms';
+import { ResourceData } from './../../models';
+import { ExtendedFieldConfig, ResourceInfo, ResourceDataValues } from './../../stk/interfaces';
+import { DynamicClass } from './../../openapi-stubs/dynamic-class-proxy';
 
 export abstract class LazyBase implements OnInit, OnChanges, OnDestroy {
 
   @Input() renderInfo: ResourceInfo;
-  @Output() resourceUpdated: EventEmitter<any> = new EventEmitter();
+  @Input() resourceUpdated: any;
 
-  // using Subject instead of Observable in rendering, to avoid flicker on data re-fetch
   resourceData$: Subject<ResourceData> = new Subject();
   resourceDataValues$: Subject<ResourceDataValues> = new Subject();
 
@@ -22,43 +22,30 @@ export abstract class LazyBase implements OnInit, OnChanges, OnDestroy {
   properties: string[];
   subs: Subscription[] = [];
 
-  config: FieldConfig;
+  config: ExtendedFieldConfig;
   formgroup: FormGroup = new FormGroup({});
 
-  valuesCallback: (item: any) => any = (item) => item;
+  valuesCallback: (item: any) => any;
 
   constructor(
     protected openapiService: OpenapiService,
-    protected halService: HalService
+    protected halService: HalService,
+    // protected events: EventBusService
   ) { }
 
   ngOnInit(): void {
     this.setConfig();
+    if (!this.valuesCallback) {
+      this.valuesCallback = (item) => ({
+        name: item[this.config.descriptionProp],
+        value: item.id
+      });
+    }
     if (this.renderInfo) {
       this.initData();
     }
   }
 
-  // setupStateChanges() {
-  //   if (this.config && this.config.x_updateState) {
-  //     console.log('connfig has ', this.config)
-  //     this.subs.push(
-  //       this.formgroup.get(this.config.name).valueChanges
-  //         .pipe(debounce(val => interval(100)))
-  //         .subscribe( (newVal) => {
-  //           console.log('newval', newVal);
-  //           // if (this.formgroup.get(this.config.name).status === 'VALID') {
-  //           //   // TODO: deep clone data
-  //           //   const data = {...this.formgroup.value};
-  //           //   delete data.__proto__;
-  //           //   // this.inputCallsResourceUpdate.emit(data);
-  //           // }
-  //         })
-  //     );
-  //   } else {
-  //     console.log('no config');
-  //   }
-  // }
 
   /**
    *
@@ -100,8 +87,19 @@ export abstract class LazyBase implements OnInit, OnChanges, OnDestroy {
 
     if (this.resources.length > 0 || this.properties.length > 0) {
       this.subs.push(
-        this.halService.getFormatedResource(this.renderInfo, this.resources, this.properties)
+        this.halService.getFormatedResources(this.renderInfo, this.resources, this.properties)
           .subscribe(data => {
+            // get own meta and pass to each subresource
+            // const className = `${Utils.nameToClass(this.renderInfo.propertyName)}Dto`;
+            const instance = new DynamicClass(
+              'ApplicationDto'
+            );
+            console.log('instance data ', instance);
+            Object.keys(data.resources).map(key => {
+              if (instance[key]) {
+                data.resources[key].meta = instance[key];
+              }
+            });
             this.resourceData$.next(data);
             // this.setupStateChanges();
           })
@@ -111,7 +109,7 @@ export abstract class LazyBase implements OnInit, OnChanges, OnDestroy {
     if (this.renderInfo.values) {
       this.config.x_lookupItems$ = this.resourceDataValues$.pipe(map(data => data.items));
       this.subs.push(
-        this.halService.getResourceValues(this.renderInfo.values, this.renderInfo.currieName)
+        this.halService.getResourceValues(this.renderInfo)
           .pipe(map(data => {
             // this is per component instance transformation
             return data && data.items ?
@@ -128,6 +126,8 @@ export abstract class LazyBase implements OnInit, OnChanges, OnDestroy {
     const resourceName = this.renderInfo.propertyName;
     if (!resourceName) { return; }
     const meta = this.openapiService.getMeta(resourceName);
+    this.properties = meta.properties || [];
+    this.resources = meta.resources || [];
 
     const config = {
       title: meta.title,
@@ -138,18 +138,20 @@ export abstract class LazyBase implements OnInit, OnChanges, OnDestroy {
     this.config = config;
   }
 
-  updateState(e: {value: any, formData: any}) {
-    const newVal = e.value;
-    console.log('updating val ', newVal);
-    this.halService.updateResource(
-      this.renderInfo.href,
-      this.openapiService.getMeta(this.renderInfo.propertyName).valueProp,
-      newVal
-    ).pipe(take(1)).subscribe(this.resourceUpdated.emit);
-  }
+  // updateState(e: {value: any, formData: any}) {
+  //   const newVal = e.value;
+  //   console.log('updating val ', newVal);
+  //   this.halService.updateResource(
+  //     this.renderInfo.href,
+  //     this.openapiService.getMeta(this.renderInfo.propertyName).valueProp,
+  //     newVal
+  //   ).pipe(take(1)).subscribe(_ => {
+  //     console.log('asdfasdf', this.resourceUpdated);
+  //     if (this.resourceUpdated && typeof this.resourceUpdated === 'function') {
+  //       this.resourceUpdated(newVal);
+  //     }
+  //   });
+  // }
 
-  onResourceUpdate() {
-    this.initData();
-  }
 
 }

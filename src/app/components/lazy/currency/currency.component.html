@@ -1,1 +1,8 @@
-<p>currency works!</p>
+<ng-container *ngIf="renderData$ | async as renderData">
+    <ng-container *ngFor="let config of renderData.formElements | keyvalue">
+        <stk-simple-select
+            [config]="config.value"
+            [group]="formgroup">
+        </stk-simple-select>
+    </ng-container>
+</ng-container>
