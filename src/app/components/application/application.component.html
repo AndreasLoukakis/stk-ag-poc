@@ -1,6 +1,12 @@
 <div debug>
     <button (click)="setContext()" class="pf-c-button pf-m-secondary" type="button">Trigger get</button>
 </div>
+<!-- <div class="button-cantmove">
+    <span (mouseover)="toggleButtonClass()">
+        <button [ngClass]="{'goright': buttonToggled}" class="pf-c-button pf-m-secondary cant-click" type="button">Save Central</button>
+    </span>
+</div> -->
+
 <ng-container *ngIf="(subResourceInfo$ | async) as resources">
     <ng-template appRenderer [renderInfo]="resources.channel"></ng-template>
     <ng-template appRenderer [renderInfo]="resources.branch"></ng-template>

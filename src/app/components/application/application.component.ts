@@ -17,14 +17,16 @@ import { ApiService } from './../../stk/services/api.service';
 })
 export class ApplicationComponent extends ComplexBaseComponent {
 
-  // resources: string[] = [
-  //   'channel', 'branch', 'branchOther', 'loanType', 'consumerProduct', 'morgateProduct'
-  // ];
-  // properties: [];
+
+  buttonToggled: boolean = false;
 
   constructor(
     protected api: ApiService
   ) { super(api); }
+
+  toggleButtonClass() {
+    this.buttonToggled = !this.buttonToggled;
+  }
 
 }
 
