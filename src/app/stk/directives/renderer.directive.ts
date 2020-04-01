@@ -34,13 +34,6 @@ export class RendererDirective implements OnChanges, OnInit {
     if (!changes.renderInfo) { return; }
     if (this.component && this.component.instance) {
       this.component.instance.renderInfo = changes.renderInfo.currentValue;
-      if (this.component.instance.renderInfo.meta && this.component.instance.renderInfo.meta.x_state_changer) {
-        this.component.instance.childResourceStateChange.subscribe(
-          newVal => {
-            console.log('heard you, ', newVal, this.hostcmp);
-          }
-        );
-      }
     } else {
       if (changes.renderInfo && changes.renderInfo.currentValue) {
         const name = changes.renderInfo.currentValue?.currieName;
@@ -58,7 +51,6 @@ export class RendererDirective implements OnChanges, OnInit {
     let className = Utils.nameToComponentClass(name);
     const fileName = Utils.nameToComponentFile(name);
     const folder = Utils.nameToComponentFolder(name);
-    console.log('rendering ', className);
     let module;
     try {
       module = await import (`./../../components/lazy/${folder}/${fileName}`);
@@ -70,6 +62,12 @@ export class RendererDirective implements OnChanges, OnInit {
 
     this.component = this.viewRef.createComponent(this.factory.resolveComponentFactory<ComplexBaseComponent>(module[className]));
     this.component.instance.renderInfo = instanceData;
+
+    this.component.instance.childResourceStateChange.subscribe(
+      newVal => {
+        this.hostcmp.setContext();
+      }
+    );
 
   }
 

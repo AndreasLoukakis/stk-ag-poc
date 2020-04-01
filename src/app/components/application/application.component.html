@@ -6,8 +6,8 @@
     <ng-template appRenderer [renderInfo]="resources.branch"></ng-template>
     <ng-template appRenderer [renderInfo]="resources.branchOther"></ng-template>
     <ng-template appRenderer [renderInfo]="resources.loanType"></ng-template>
-    <ng-template appRenderer [renderInfo]="resources.consumerProduct"></ng-template>
-    <ng-template appRenderer [renderInfo]="resources.mortgageProduct"></ng-template>
+    <ng-template *ngIf="resources.consumerProduct" appRenderer [renderInfo]="resources.consumerProduct"></ng-template>
+    <ng-template *ngIf="resources.mortgageProduct" appRenderer [renderInfo]="resources.mortgageProduct"></ng-template>
 </ng-container>
 <div debug class="explanation">
     <h3>Application component</h3>
