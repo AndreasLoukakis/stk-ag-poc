@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StkFormsModule } from 'stk-forms';
 import { StkDatepickerModule } from 'stk-datepicker';
 import { StkModule } from './../stk/stk.module';
+import { StkListsModule } from 'stk-lists';
+import { StkTablesModule } from 'stk-tables';
 
 
 @NgModule({
@@ -14,14 +16,18 @@ import { StkModule } from './../stk/stk.module';
     StkDatepickerModule,
     StkFormsModule,
     StkModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StkListsModule,
+    StkTablesModule
   ],
   exports: [
     CommonModule,
     StkFormsModule,
     StkDatepickerModule,
     StkModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StkListsModule,
+    StkTablesModule
   ]
 })
 export class SharedModule { }

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-
-import { ResourceData } from '../../models';
+import { map } from 'rxjs/operators';
+import { UtilsService as Utils } from './utils.service';
 import { ResourceInfo, ResourceDataValues } from './../interfaces';
 
 
@@ -34,51 +33,8 @@ export class HalService {
       .pipe(map(data => this.transformValues(data, resourceInfo.currieName)));
   }
 
-  /**
-   *
-   * @param resourceInfo: ResourceInfo, using href and values.href if applicable
-   * @param resources : Expected resources by the template
-   * @param properties : Expected properties by the template
-   */
-  // getFormatedResource(
-  //   resourceInfo: ResourceInfo,
-  //   properties: string[] = []): Observable<any> {
-  //     return this.getResource(resourceInfo.href)
-  //     .pipe(
-  //       map(response => this.formatProps(response, properties))
-  //     );
-  // }
-
-  /**
-   *
-   * @param resourceInfo: ResourceInfo, using href and values.href if applicable
-   * @param resources : Expected resources by the template
-   * @param properties : Expected properties by the template
-   */
-  getFormatedResources(
-    resourceInfo: ResourceInfo,
-    resources: string[],
-    properties: string[] = []): Observable<ResourceData> {
-      return this.getResource(this.proxyUrl(resourceInfo.href));
-      // .pipe(
-      //   map(response => this.formatResources(response, resources, this.formatProps(response, properties)))
-      // );
-  }
-
-  // formatProps(response: any, props: string[]) {
-  //   return Object.keys(response).reduce((all, cur) => {
-  //     if (props.includes(cur)) {
-  //       all[cur] = response[cur];
-  //     }
-  //     return all;
-  //   }, {});
-  // }
-
-
   formatResources(response: any, parentInstance: any): {[key: string]: ResourceInfo} {
 
-
-    /** resources */
     const linkKeys: string[] = response._links ? Object.keys(response._links) : [];
 
     const valueLinkKeys = linkKeys.filter(link => link.endsWith('.values'));
@@ -94,11 +50,11 @@ export class HalService {
     return propLinks.reduce((links, cur) => {
       if (response._links[cur] && Array.isArray(response._links[cur])) {
         response._links[cur].map(valueLink => {
-          const propName = this.toCamelCase(valueLink.name);
+          const propName = Utils.toCamelCase(valueLink.name);
           links[propName] = this.makeResourceData(valueLink, propValues, propName, cur, response, parentInstance);
         });
       } else if (response._links[cur]) {
-        const propName = this.toCamelCase(response._links[cur].name);
+        const propName = Utils.toCamelCase(response._links[cur].name);
         links[propName] = this.makeResourceData(response._links[cur], propValues, propName, cur, response, parentInstance);
       }
       return links;
@@ -156,7 +112,4 @@ export class HalService {
     };
   }
 
-  private toCamelCase(str) {
-    return `${str.substr( 0, 1 ).toLowerCase()}${str.substr( 1 )}`;
-  }
 }

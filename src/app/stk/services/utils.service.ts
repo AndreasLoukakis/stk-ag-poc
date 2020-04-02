@@ -22,4 +22,9 @@ export class UtilsService {
   static nameToComponentFile(name: string) {
     return `${this.nameToComponentFolder(name)}.component`;
   }
+
+  static toCamelCase(str) {
+    str = this.nameToClass(str);
+    return `${str.substr( 0, 1 ).toLowerCase()}${str.substr( 1 )}`;
+  }
 }

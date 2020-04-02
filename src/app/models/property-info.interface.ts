@@ -1,5 +1,5 @@
 
-export interface PropertyInfo {
-  propertyName: string;
-  [prop: string]: any;
-}
+// export interface PropertyInfo {
+//   propertyName: string;
+//   [prop: string]: any;
+// }

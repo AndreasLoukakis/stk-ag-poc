@@ -40,7 +40,7 @@ export abstract class BaseComponent implements OnDestroy {
   ) {}
 
   ngOnDestroy() {
-    this.dataSubscription.unsubscribe();
+    if (this.dataSubscription) { this.dataSubscription.unsubscribe(); }
   }
 
   setContext() {

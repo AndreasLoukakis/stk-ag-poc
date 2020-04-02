@@ -10,6 +10,7 @@ export class MortgageProductDto extends ProductDto {
   factoryProduct = { 
     nullable: true,
     type: 'ReferenceOfMortgageFactoryProductDto',
+    x_state_changer: true,
     get valueProp() { return Object.keys(new ReferenceOfMortgageFactoryProductDto())[0]; }
   };
   gracePeriod = { 

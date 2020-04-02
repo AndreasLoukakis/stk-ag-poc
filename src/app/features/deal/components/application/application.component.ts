@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ComplexBaseComponent } from './../../stk/abstract/complex-base-component';
-import { ApiService } from './../../stk/services/api.service';
+import { ComplexBaseComponent } from './../../../../stk/abstract/complex-base-component';
+import { ApiService } from './../../../../stk/services/api.service';
 
 @Component({
   selector: 'app-application',
@@ -22,5 +22,3 @@ export class ApplicationComponent extends ComplexBaseComponent {
   }
 
 }
-
-

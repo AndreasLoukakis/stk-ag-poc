@@ -1,0 +1,20 @@
+<ng-container *ngIf="deals$ | async as deals;else loading">
+    <stk-list [iterable]="deals"
+        [config]="{listType: 'data', itemTemplate: itemTpl}">
+    </stk-list>
+</ng-container>
+<ng-template #itemTpl let-item="item">
+    <div>
+        <a [routerLink]="['/deals/' + item.id]">
+            <strong>Item #{{item.id}}</strong>
+            <pre>{{item | json}}</pre>
+        </a>
+    </div>
+</ng-template>
+<ng-template #loading>
+    <span class="pf-c-spinner" role="progressbar" aria-valuetext="Loading...">
+        <span class="pf-c-spinner__clipper"></span>
+        <span class="pf-c-spinner__lead-ball"></span>
+        <span class="pf-c-spinner__tail-ball"></span>
+    </span> 
+</ng-template>
