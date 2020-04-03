@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { tempMeta } from '../../services/temp-meta';
 import { ExtendedFieldConfig } from './../interfaces';
 import { DynamicClass } from './../../openapi-stubs/dynamic-class-proxy';
 import { UtilsService as Utils } from './../services/utils.service';
@@ -11,9 +10,6 @@ export class OpenapiService {
 
   constructor() { }
 
-  getMeta(resource: string): Partial<ExtendedFieldConfig> {
-    return tempMeta[resource];
-  }
 
   async getClass(resourceName: string) {
 

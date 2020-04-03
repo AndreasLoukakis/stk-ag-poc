@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UiStateService } from './../../../../services/ui-state.service';
+import { UiStateService } from './../../../../common/services/ui-state.service';
 
 @Component({
   selector: 'app-header',

@@ -8,16 +8,12 @@ import { SharedModule } from './shared/shared.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ApplicationComponent } from './components/application/application.component';
-import { DealComponent } from './components/wrapers/deal/deal.component';
 
-import { FallbackComponent } from './components/lazy/fallback/fallback.component';
+import { FallbackComponent } from './common/lazy/fallback/fallback.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ApplicationComponent,
-    DealComponent,
     FallbackComponent,
   ],
   imports: [

@@ -11,9 +11,9 @@
   "include": [
     "src/**/*.d.ts",
     "src/app/openapi-stubs/*.ts",
-    "src/app/components/lazy/**/*.component.ts",
+    "src/app/common/lazy/**/*.component.ts",
     "src/app/components/stk/services/**/*.ts",
-    "src/app/components/lazy/**/*.spec.ts",
+    "src/app/common/lazy/**/*.spec.ts",
     "src/app/openapi/**/*.ts",
   ]
 }

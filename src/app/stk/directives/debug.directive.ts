@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit } from '@angular/core';
-import { UiStateService } from '../../services/ui-state.service';
+import { UiStateService } from '../../common/services/ui-state.service';
 
 @Directive({
   // tslint:disable-next-line:directive-selector

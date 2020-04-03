@@ -25,7 +25,7 @@
     "@patternfly/patternfly": "^2.68.3",
     "rxjs": "~6.5.4",
     "stk-datepicker": "0.0.9",
-    "stk-forms": "0.0.34",
+    "stk-forms": "0.0.35",
     "stk-lists": "0.0.4",
     "stk-pagination": "0.0.3",
     "stk-tables": "0.0.3",

@@ -7,7 +7,7 @@
     <div>
         <a [routerLink]="['/deals/' + item.id]">
             <strong>Item #{{item.id}}</strong>
-            <pre>{{item | json}}</pre>
+            <pre class="explanation" debug>{{item | json}}</pre>
         </a>
     </div>
 </ng-template>
