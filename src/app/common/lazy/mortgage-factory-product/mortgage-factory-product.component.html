@@ -1,0 +1,18 @@
+<ng-container *ngIf="renderData$ | async as renderData">
+    <ng-container *ngFor="let config of renderData.formElements | keyvalue">
+        <stk-simple-select
+            (selectStateChange)="patchAndPropagate($event)"
+            [config]="config.value"
+            [group]="formgroup">
+        </stk-simple-select>
+    </ng-container>
+</ng-container>
+
+<div debug class="explanation">
+    <div>
+        <pre>{{renderInfo | json}}</pre>
+    </div>
+    <div><strong>Own resource</strong>
+        <pre>{{(renderData$ | async) | json}}</pre>
+    </div>
+</div>
