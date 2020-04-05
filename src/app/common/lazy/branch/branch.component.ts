@@ -9,9 +9,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
 })
 export class BranchComponent extends ComplexBaseComponent {
 
+  adminMode = false;
+
   constructor(
     api: ApiService
   ) { super(api); }
+
 }
 
 @NgModule({

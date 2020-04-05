@@ -2,30 +2,25 @@ import { Input, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 
+import { OnChange, OnChangeMsg } from './../decorators/on-change.decorator';
+
 import { ApiService, InitResourceResponse } from '../services/api.service';
 import { RenderData } from './../interfaces/render-data.interface';
 import { ResourceInfo } from './../interfaces/resource-info.interface';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 export abstract class BaseComponent implements OnDestroy {
 
   // resourceInfo and not mandatory formgroup passed from parent
-  protected renderInfoPlaceholder: ResourceInfo;
-
-  get renderInfo() {
-    return this.renderInfoPlaceholder;
-  }
-  @Input()
-  set renderInfo(data: ResourceInfo) {
-    this.renderInfoPlaceholder = data;
+  @OnChange<ResourceInfo>(function(newVal, changeMsg: OnChangeMsg<ResourceInfo>) {
     this.setContext();
-  }
+  })
+  @Input() renderInfo: ResourceInfo;
 
   @Input() formgroup: FormGroup = new FormGroup({});
 
   // Own resource data fed to template as subject
   renderData$: Subject<RenderData> = new Subject();
-  // Info feed for dynamic subresources
-  // subResourceInfo$: Subject<{ [key: string]: ResourceInfo }> = new Subject();
 
   // declare local form elements, or get all complex properties from meta
   // Can be a flat or complex object, maping the form element structure

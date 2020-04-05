@@ -15,7 +15,6 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleDebug() {
-    console.log('clicked, ', this.debugState)
     this.debugState = !this.debugState;
     this.uiState.setDebugMode(this.debugState);
   }

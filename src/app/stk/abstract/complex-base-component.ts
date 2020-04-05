@@ -7,16 +7,16 @@ import { BaseComponent } from './base-component';
 
 export abstract class ComplexBaseComponent extends BaseComponent {
 
-  protected renderInfoPlaceholder: ResourceInfo;
+  // protected renderInfoPlaceholder: ResourceInfo;
 
-  get renderInfo(): ResourceInfo {
-    return this.renderInfoPlaceholder;
-  }
-  @Input()
-  set renderInfo(data: ResourceInfo) {
-    this.renderInfoPlaceholder = data;
-    this.setContext();
-  }
+  // get renderInfo(): ResourceInfo {
+  //   return this.renderInfoPlaceholder;
+  // }
+  // @Input()
+  // set renderInfo(data: ResourceInfo) {
+  //   this.renderInfoPlaceholder = data;
+  //   this.setContext();
+  // }
 
   @Output() childResourceStateChange = new EventEmitter<{[key: string]: any}>();
   // Info feed for dynamic subresources
