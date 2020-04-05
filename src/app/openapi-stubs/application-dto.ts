@@ -20,7 +20,8 @@ export class ApplicationDto  {
     type: 'ReferenceOfBranchDto',
     get valueProp() { return Object.keys(new ReferenceOfBranchDto())[0]; }
   };
-  channel = { 
+  channel = {
+    required: true,
     nullable: true,
     type: 'ReferenceOfChannelDto',
     get valueProp() { return Object.keys(new ReferenceOfChannelDto())[0]; }

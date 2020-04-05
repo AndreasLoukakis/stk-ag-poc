@@ -1,6 +1,17 @@
 <main role="main" class="pf-c-page__main" tabindex="-1" id="main-content-page-default-nav-example">
   <app-breadcrumbs></app-breadcrumbs>
   <section class="pf-c-page__main-section">
-    <router-outlet></router-outlet>
+
+    <div class="pf-l-grid pf-m-gutter">
+      <div class="tree-view pf-l-grid__item pf-m-2-col">
+        <ul class="nav">
+          <li>Application</li>
+        </ul>
+      </div>
+      <div class="pf-l-grid__item pf-m-10-col">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    
   </section>
 </main>

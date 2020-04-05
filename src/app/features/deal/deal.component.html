@@ -1,1 +1,4 @@
-<app-application [renderInfo]="resourceInfo"></app-application>
+<pre>
+    {{formData$ | async | json}}
+</pre>
+<app-application [renderInfo]="resourceInfo" [formgroup]="formgroup"></app-application>

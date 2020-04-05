@@ -6,6 +6,7 @@ import { ResourceInfo } from './../interfaces';
 import { ComplexBaseComponent } from '../abstract/complex-base-component';
 import { ComponentMapperService } from '../../common/services/component-mapper.service';
 import { UtilsService as Utils } from '../services/utils.service';
+import { FormGroup } from '@angular/forms';
 
 
 @Directive({
@@ -14,6 +15,7 @@ import { UtilsService as Utils } from '../services/utils.service';
 export class RendererDirective implements OnChanges, OnInit {
 
   @Input() renderInfo: ResourceInfo;
+  @Input() formgroup: FormGroup;
 
   component: ComponentRef<ComplexBaseComponent>;
 
@@ -60,6 +62,7 @@ export class RendererDirective implements OnChanges, OnInit {
 
     this.component = this.viewRef.createComponent(this.factory.resolveComponentFactory<ComplexBaseComponent>(module[className]));
     this.component.instance.renderInfo = instanceData;
+    if (this.formgroup) { this.component.instance.formgroup = this.formgroup; }
 
     this.component.instance.childResourceStateChange.subscribe(
       newVal => {

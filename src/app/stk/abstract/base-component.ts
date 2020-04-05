@@ -7,7 +7,6 @@ import { OnChange, OnChangeMsg } from './../decorators/on-change.decorator';
 import { ApiService, InitResourceResponse } from '../services/api.service';
 import { RenderData } from './../interfaces/render-data.interface';
 import { ResourceInfo } from './../interfaces/resource-info.interface';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 export abstract class BaseComponent implements OnDestroy {
 

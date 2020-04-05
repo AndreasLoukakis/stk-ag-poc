@@ -1,4 +1,4 @@
-import { Input, Output, EventEmitter } from '@angular/core';
+import { Output, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { ApiService, InitResourceResponse } from '../services/api.service';
@@ -6,17 +6,6 @@ import { ResourceInfo } from './../interfaces';
 import { BaseComponent } from './base-component';
 
 export abstract class ComplexBaseComponent extends BaseComponent {
-
-  // protected renderInfoPlaceholder: ResourceInfo;
-
-  // get renderInfo(): ResourceInfo {
-  //   return this.renderInfoPlaceholder;
-  // }
-  // @Input()
-  // set renderInfo(data: ResourceInfo) {
-  //   this.renderInfoPlaceholder = data;
-  //   this.setContext();
-  // }
 
   @Output() childResourceStateChange = new EventEmitter<{[key: string]: any}>();
   // Info feed for dynamic subresources
@@ -31,9 +20,9 @@ export abstract class ComplexBaseComponent extends BaseComponent {
     if (this.renderInfo) {
       if (this.dataSubscription) { this.dataSubscription.unsubscribe(); }
       this.dataSubscription = this.api.initResource(this.renderInfo).subscribe(
-        (data: InitResourceResponse) => {
-          this.renderData$.next(data.renderData);
-          this.subResourceInfo$.next(data.subResources);
+        ({renderData, subResources}: InitResourceResponse) => {
+          this.renderData$.next(renderData);
+          this.subResourceInfo$.next(subResources);
         }
       );
     }
