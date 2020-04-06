@@ -1,6 +1,6 @@
-import { Input, OnDestroy } from '@angular/core';
+import { Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription, Observable } from 'rxjs';
 
 import { OnChange, OnChangeMsg } from './../decorators/on-change.decorator';
 
@@ -15,11 +15,14 @@ export abstract class BaseComponent implements OnDestroy {
     this.setContext();
   })
   @Input() renderInfo: ResourceInfo;
+  // Info feed for dynamic subresources
+  subResourceInfo$: BehaviorSubject<{ [key: string]: ResourceInfo }> = new BehaviorSubject({});
 
   @Input() formgroup: FormGroup = new FormGroup({});
 
   // Own resource data fed to template as subject
-  renderData$: Subject<RenderData> = new Subject();
+  renderData$: BehaviorSubject<RenderData> = new BehaviorSubject({});
+  // renderData$: Observable<RenderData> = this.renderDataChanges$.asObservable();
 
   // declare local form elements, or get all complex properties from meta
   // Can be a flat or complex object, maping the form element structure
@@ -41,8 +44,9 @@ export abstract class BaseComponent implements OnDestroy {
     if (this.renderInfo) {
       if (this.dataSubscription) { this.dataSubscription.unsubscribe(); }
       this.dataSubscription = this.api.initResource(this.renderInfo).subscribe(
-        (data: InitResourceResponse) => {
-          this.renderData$.next(data.renderData);
+        ({renderData, subResources}: InitResourceResponse) => {
+          this.renderData$.next(renderData);
+          this.subResourceInfo$.next(subResources);
         }
       );
     }

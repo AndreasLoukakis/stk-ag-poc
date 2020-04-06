@@ -13,7 +13,12 @@ export class BranchComponent extends ComplexBaseComponent {
 
   constructor(
     api: ApiService
-  ) { super(api); }
+  ) {
+    super(api);
+    // this.renderData$.subscribe(val => {
+    //   debugger;
+    // })
+  }
 
 }
 

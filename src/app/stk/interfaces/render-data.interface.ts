@@ -1,10 +1,10 @@
 import { ExtendedFieldConfig } from './extended-field-config.interface';
 
 export interface RenderData {
-    formElements: {
+    formElements?: {
         [key: string]: ExtendedFieldConfig | FormElement
     };
-    instance: any;
+    instance?: any;
 }
 
 export interface FormElement {

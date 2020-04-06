@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ComplexBaseComponent } from './../../../../stk/abstract/complex-base-component';
 import { ApiService } from './../../../../stk/services/api.service';
+import { DealApiService } from './../../services/deal-api.service';
 
 @Component({
   selector: 'app-application',
@@ -8,17 +10,22 @@ import { ApiService } from './../../../../stk/services/api.service';
   styleUrls: ['./application.component.scss'],
   providers: [{provide: ComplexBaseComponent, useExisting: ApplicationComponent}]
 })
-export class ApplicationComponent extends ComplexBaseComponent {
+export class ApplicationComponent extends ComplexBaseComponent implements OnInit {
 
-
-  buttonToggled = false;
+  currentDealId: number;
 
   constructor(
-    protected api: ApiService
+    protected api: ApiService,
+    private route: ActivatedRoute
   ) { super(api); }
 
-  toggleButtonClass() {
-    this.buttonToggled = !this.buttonToggled;
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(
+      routeData => {
+        this.currentDealId = +Number(routeData.get('id'));
+      }
+    );
   }
+
 
 }
