@@ -1,6 +1,10 @@
 <ng-container *ngIf="(subResourceInfo$ | async) as resources">
-    <ng-template appRenderer [renderInfo]="resources.productCategory"></ng-template>
-    <ng-template appRenderer [renderInfo]="resources.factoryProduct"></ng-template>
+    <div class="pf-l-grid__item" *ngIf="resources.productCategory">
+        <ng-template appRenderer [renderInfo]="resources.productCategory"></ng-template>
+    </div>
+    <div class="pf-l-grid__item" *ngIf="resources.factoryProduct">
+        <ng-template appRenderer [renderInfo]="resources.factoryProduct"></ng-template>
+    </div> 
     <!-- <ng-template appRenderer [renderInfo]="resources.currency"></ng-template> -->
 </ng-container>
 

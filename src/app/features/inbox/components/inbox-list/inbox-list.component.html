@@ -1,4 +1,7 @@
 <ng-container *ngIf="deals$ | async as deals;else loading">
+    <div>
+        <button (click)="createDeal()" class="pf-c-button pf-m-primary" type="button">Create Deal</button>
+    </div>
     <stk-list [iterable]="deals"
         [config]="{listType: 'data', itemTemplate: itemTpl}">
     </stk-list>

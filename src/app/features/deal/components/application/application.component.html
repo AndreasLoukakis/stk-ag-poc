@@ -1,30 +1,38 @@
-<ng-container *ngIf="(subResourceInfo$ | async) as resources">
-    <ng-template
-        appRenderer
-        [renderInfo]="resources.channel"
-        [formgroup]="formgroup"></ng-template>
-    <ng-template
-        appRenderer
-        [renderInfo]="resources.branch"
-        [formgroup]="formgroup"></ng-template>
-    <ng-template
-        appRenderer
-        [renderInfo]="resources.branchOther"
-        [formgroup]="formgroup"></ng-template>
-    <ng-template
-        appRenderer
-        [renderInfo]="resources.loanType"
-        [formgroup]="formgroup"></ng-template>
-    <ng-template *ngIf="resources.consumerProduct"
-        appRenderer
-        [formgroup]="formgroup"
-        [renderInfo]="resources.consumerProduct"></ng-template>
-    <ng-template *ngIf="resources.mortgageProduct"
-        appRenderer
-        [formgroup]="formgroup"
-        [renderInfo]="resources.mortgageProduct"></ng-template>
-</ng-container>
-
-<!-- <pre>
-    {{subResourceInfo$ | async | json}}
-</pre> -->
+<div *ngIf="renderInfo && !renderInfo.id">
+    <button (click)="createApplication()" class="pf-c-button pf-m-primary" type="button">Create application</button>
+</div>
+<div>Form is: validity: {{formStatus$ | async}}, pristine: {{formDirty$ | async}}</div>
+<div class="pf-l-grid pf-m-gutter pf-m-all-12-col-on-sm pf-m-all-6-col-on-md">
+    <ng-container *ngIf="(subResourceInfo$ | async) as resources">
+        <div class="pf-l-grid__item" *ngIf="resources.channel">
+            <ng-template appRenderer
+                [renderInfo]="resources.channel"
+                [formgroup]="formgroup"></ng-template>
+        </div>
+        <div class="pf-l-grid__item" *ngIf="resources.branch">
+        <ng-template appRenderer
+            [renderInfo]="resources.branch"
+            [formgroup]="formgroup"></ng-template>
+        </div>
+        <div class="pf-l-grid__item" *ngIf="resources.branchOther">
+        <ng-template appRenderer
+            [renderInfo]="resources.branchOther"
+            [formgroup]="formgroup"></ng-template>
+        </div>
+        <div class="pf-l-grid__item" *ngIf="resources.loanType">
+        <ng-template appRenderer
+            [renderInfo]="resources.loanType"
+            [formgroup]="formgroup"></ng-template>
+        </div>
+        <div class="pf-l-grid__item pf-m-12-col-on-md" *ngIf="resources.consumerProduct">
+        <ng-template appRenderer
+            [formgroup]="formgroup"
+            [renderInfo]="resources.consumerProduct"></ng-template>
+        </div>
+        <div class="pf-l-grid__item pf-m-12-col-on-md" *ngIf="resources.mortgageProduct">
+        <ng-template appRenderer
+            [formgroup]="formgroup"
+            [renderInfo]="resources.mortgageProduct"></ng-template>
+        </div>
+    </ng-container>
+</div>

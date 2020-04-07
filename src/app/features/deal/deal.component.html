@@ -1,4 +1,8 @@
-<pre>
-    {{formData$ | async | json}}
-</pre>
-<app-application [renderInfo]="resourceInfo" [formgroup]="formgroup"></app-application>
+<div class="pf-l-grid pf-m-gutter">
+    <div class="tree-view pf-l-grid__item pf-m-2-col">
+        <app-navigation></app-navigation>
+    </div>
+    <div class="pf-l-grid__item pf-m-10-col">
+        <router-outlet></router-outlet>
+    </div>
+</div>

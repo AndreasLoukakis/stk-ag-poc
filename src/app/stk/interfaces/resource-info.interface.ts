@@ -8,6 +8,7 @@ export interface ResourceInfo {
   classRef?: string;
   valueProp?: string;
   href: string;
+  dealId?: number;
   formgroup?: FormGroup;
   meta?: { [prop: string]: any }; // subresource meta.
   values?: {

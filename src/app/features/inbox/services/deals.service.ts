@@ -15,6 +15,10 @@ export class DealsService {
       map(response => response._embedded.deals)
     );
   }
+
+  createDeal() {
+    return this.http.post('http://apigateway-trunk.relationalfs.com/deals', {});
+  }
 }
 
 export interface DealsListResponse {

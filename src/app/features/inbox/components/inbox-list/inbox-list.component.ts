@@ -30,4 +30,10 @@ export class InboxListComponent extends ComplexBaseComponent implements OnInit {
     this.deals$ = this.service.getDeals();
   }
 
+  createDeal() {
+    this.service.createDeal().subscribe(
+      _ => this.deals$ = this.service.getDeals()
+    );
+  }
+
 }

@@ -5,10 +5,11 @@ import { DealRoutingModule } from './deal-routing.module';
 import { DealComponent } from './deal.component';
 import { ApplicationComponent } from './components/application/application.component';
 import { PartiesComponent } from './components/parties/parties.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 
 @NgModule({
-  declarations: [DealComponent, ApplicationComponent, PartiesComponent],
+  declarations: [DealComponent, ApplicationComponent, PartiesComponent, NavigationComponent],
   imports: [
     SharedModule,
     DealRoutingModule
