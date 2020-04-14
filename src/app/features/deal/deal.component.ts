@@ -26,9 +26,7 @@ export class DealComponent implements OnInit {
       routeData => {
         const dealId = Number(routeData.get('id'));
         this.service.getDeal(dealId).subscribe(
-          dealData => {
-            this.nav.updateNavTree(dealData, dealId);
-          }
+          dealData => this.nav.updateNavTree(dealData, dealId)
         );
       }
     );

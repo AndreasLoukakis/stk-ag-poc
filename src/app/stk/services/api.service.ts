@@ -4,7 +4,6 @@ import { map } from 'rxjs/operators';
 import { HalService } from './hal.service';
 import { OpenapiService } from './openapi.service';
 import { DynamicClass } from './../../openapi-stubs/dynamic-class-proxy';
-import { UtilsService as Utils } from './../services/utils.service';
 import { TranslateService as Lang } from './translate.service';
 
 

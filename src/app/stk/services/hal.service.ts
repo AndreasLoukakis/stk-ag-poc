@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from './../../../environments/environment';
 import { UtilsService as Utils } from './utils.service';
 import { ResourceInfo, ResourceDataValues } from './../interfaces';
 
@@ -13,23 +14,16 @@ export class HalService {
 
   constructor(private http: HttpClient) { }
 
-  proxyUrl(url) {
-    return url;
-    // return '/api/' + url.replace('https://localhost:44319/', '').replace('https://localhost:4200/', '');
-  }
-
   updateResource( url: string, data: {[key: string]: any}) {
-    url = this.proxyUrl(url);
     return this.http.put(url, data);
   }
 
   getResource(href: string): Observable<any> {
-    href = this.proxyUrl(href);
     return this.http.get(href);
   }
 
   getResourceValues(resourceInfo: ResourceInfo): Observable<any> {
-    return this.http.get<ResourceDataValues>(this.proxyUrl(resourceInfo.values.href))
+    return this.http.get<ResourceDataValues>(resourceInfo.values.href)
       .pipe(map(data => this.transformValues(data, resourceInfo.currieName)));
   }
 

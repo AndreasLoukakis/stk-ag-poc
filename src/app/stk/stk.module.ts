@@ -4,7 +4,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RendererDirective } from './directives/renderer.directive';
 import { DebugDirective } from './directives/debug.directive';
 import { AddHeadersInterceptor } from './interceptors/add-headers.interceptor';
-
+import { OpenApiParserModule } from './open-api-parser/open-api-parser.module';
 
 @NgModule({
   declarations: [
@@ -13,10 +13,12 @@ import { AddHeadersInterceptor } from './interceptors/add-headers.interceptor';
   ],
   imports: [
     CommonModule,
+    OpenApiParserModule
   ],
   exports: [
     RendererDirective,
-    DebugDirective
+    DebugDirective,
+    OpenApiParserModule
   ],
   providers: [
     {

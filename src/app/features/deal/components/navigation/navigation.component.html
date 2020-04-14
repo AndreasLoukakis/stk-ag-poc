@@ -1,14 +1,7 @@
 <ng-container *ngIf="navTree$ | async as navs">
     <nav class="pf-c-nav" aria-label="Local">
         <ul class="pf-c-nav__list">
-            <li *ngFor="let nav of navs" class="pf-c-nav__item">
-                <a [routerLink]="[nav.href]"
-                    class="pf-c-nav__link"
-                    [state]="nav.state"
-                    routerLinkActive="pf-m-current">
-                    {{nav.title}}
-                </a>
-            </li>
+            <app-navigation-item *ngFor="let nav of navs" [item]="nav"></app-navigation-item>
         </ul>
     </nav>
 </ng-container>

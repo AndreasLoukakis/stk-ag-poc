@@ -13,7 +13,7 @@ const routes: Routes = [
         data: { title: 'Application', breadcrumbs: {label: 'Application'} },
       },
       {
-        path: 'parties', component: PartiesComponent,
+        path: 'dealparties', component: PartiesComponent,
         data: { title: 'Parties', breadcrumbs: {label: 'Parties'} },
       }
     ]
