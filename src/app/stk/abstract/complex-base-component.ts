@@ -15,19 +15,6 @@ export abstract class ComplexBaseComponent extends BaseComponent {
     protected api: ApiService
   ) {  super(api);  }
 
-
-  // setContext() {
-  //   if (this.renderInfo) {
-  //     if (this.dataSubscription) { this.dataSubscription.unsubscribe(); }
-  //     this.dataSubscription = this.api.initResource(this.renderInfo).subscribe(
-  //       ({renderData, subResources}: InitResourceResponse) => {
-  //         this.renderDataChanges$.next(renderData);
-  //         this.subResourceInfo$.next(subResources);
-  //       }
-  //     );
-  //   }
-  // }
-
   patchAndPropagate(newValue: {[key: string]: string}) {
     const payload = { id: newValue[Object.keys(newValue)[0]]};
     console.log('propagating state change', payload);

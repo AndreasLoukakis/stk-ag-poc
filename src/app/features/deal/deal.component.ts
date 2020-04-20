@@ -30,19 +30,6 @@ export class DealComponent implements OnInit {
         );
       }
     );
-    // this.route.paramMap.subscribe(
-    //   routeData => {
-    //     const dealId = +Number(routeData.get('id'));
-    //     this.resourceInfo = {
-    //       href: `http://apigateway-trunk.relationalfs.com/deals/${dealId}/application`,
-    //       propertyName: 'application',
-    //       currieName: '',
-    //       classRef: 'ApplicationDto',
-    //       valueProp: 'id',
-    //       id: dealId
-    //     };
-    //   }
-    // );
   }
 
 }

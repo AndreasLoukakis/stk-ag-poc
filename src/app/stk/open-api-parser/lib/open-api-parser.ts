@@ -18,6 +18,7 @@ export class OpenApiParser {
         // this should use angular httpclient but this is a static mehthod
         // and httpclient needs injection and constructor... alternatives?
         // fetch is ok (until it's not)
+        // Note: Using the static method, after calling http from open api service
         return window.fetch(uri).then((data) => {
             return new Document().Deserialize(data); // Deserialize here !!!
             // callback(new OpenApiParser(document));

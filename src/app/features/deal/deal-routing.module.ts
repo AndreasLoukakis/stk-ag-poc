@@ -15,7 +15,16 @@ const routes: Routes = [
       {
         path: 'dealparties', component: PartiesComponent,
         data: { title: 'Parties', breadcrumbs: {label: 'Parties'} },
+      },
+      {
+        path: 'borrower/:id', component: PartiesComponent,
+        data: { title: 'Borrower', breadcrumbs: {label: 'Borrower'} },
+      },
+      {
+        path: 'guarantor/:id', component: PartiesComponent,
+        data: { title: 'Guarantor', breadcrumbs: {label: 'Guarantor'} },
       }
+      //
     ]
   }
 ];

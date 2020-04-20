@@ -8,7 +8,7 @@ export abstract class XContainer implements Serializable<XContainer> {
     Deserialize(json: any): XContainer {
       this._x = new XAttributes().Deserialize(json);
       return this;
-  }
+    }
 }
 
 export class XAttributes implements Serializable<XAttributes> {
@@ -16,31 +16,37 @@ export class XAttributes implements Serializable<XAttributes> {
   // tslint:disable-next-line:variable-name
   private _map: Map<string, any> = new Map<string, any>();
 
-    Deserialize(json: any): XAttributes {
-        for (const prop in json) {
-            if (!prop.startsWith('x-')) {
-              continue;
-            }
-            this.set(prop.substr(2), json[prop]);
-        }
-        return this;
+  Deserialize(json: any): XAttributes {
+    for (const prop in json) {
+      if (!prop.startsWith('x-')) {
+        continue;
+      }
+      this.set(prop.replace(/-/g, '_'), json[prop]);
     }
+    return this;
+  }
 
-    get(key: string): any {
-        return this._map.get(key);
-    }
+  get(key: string): any {
+      return this._map.get(key);
+  }
 
-    set(key: string, value: any) {
-        this._map.set(key, value);
-    }
+  set(key: string, value: any) {
+      this._map.set(key, value);
+  }
 
-    as<TOutType>(key: string): TOutType {
-        return this.get(key) as TOutType;
-    }
+  as<TOutType>(key: string): TOutType {
+      return this.get(key) as TOutType;
+  }
 
-    is(key: string): boolean {
-        return this.as<boolean>(key);
-    }
+  is(key: string): boolean {
+      return this.as<boolean>(key);
+  }
+
+  all() {
+    const res = {};
+    this._map.forEach((value, key) => res[key] = value);
+    return res;
+  }
 
 }
 

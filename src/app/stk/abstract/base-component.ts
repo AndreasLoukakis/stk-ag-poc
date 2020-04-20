@@ -11,6 +11,7 @@ import { ResourceInfo } from './../interfaces/resource-info.interface';
 export abstract class BaseComponent implements OnDestroy {
 
   // resourceInfo and not mandatory formgroup passed from parent
+  // onchange is a custom decorator, to trigger custom onchanges functionality
   @OnChange<ResourceInfo>(function(newVal, changeMsg: OnChangeMsg<ResourceInfo>) {
     this.setContext();
   })

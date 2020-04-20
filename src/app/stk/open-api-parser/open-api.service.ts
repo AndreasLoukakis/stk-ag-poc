@@ -1,27 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { take } from 'rxjs/operators';
+
+import { Observable, merge, Subject } from 'rxjs';
+import { tap, map, share, publishReplay, shareReplay } from 'rxjs/operators';
 
 import { environment } from './../../../environments/environment';
 import { OpenApiParser } from './lib/open-api-parser';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class OpenApiModelService {
 
-  jsonUri = `${environment.apiUrl}/meta/v1/swagger.json`;
-  domain: any;
+  private jsonUri = `${environment.apiUrl}/meta/v1/swagger.json`;
+  private openStream$: Observable<any> = new Subject<void>().asObservable();
+  /**
+   * merge with a subject, to keep stream open and not trigger
+   * multiple http requests to various subscriptions
+   */
+  // tslint:disable-next-line:variable-name
+  domain$: Observable<OpenApiParser> = merge(
+    this.openStream$,
+    this.getJson()).pipe(shareReplay(1));
 
-  constructor(private http: HttpClient) {
-    this.init();
-  }
+  constructor(private http: HttpClient) { }
 
-  async init() {
-    this.http.get(this.jsonUri).pipe(take(1)).subscribe(
-      data => {
-        this.domain = OpenApiParser.fromObject(data);
-      }
+  getJson(): Observable<OpenApiParser> {
+    return this.http.get(this.jsonUri).pipe(
+      map(OpenApiParser.fromObject)
     );
   }
 }

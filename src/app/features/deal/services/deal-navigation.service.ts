@@ -17,23 +17,22 @@ export class DealNavigationService {
 
   knownNavs = [
     {key: 'ag:application', collection: false},
-    {key: 'ag:dealParties', collection: true},
+    {key: 'ag:dealParties', collection: true, titlePath: 'party.name.fullName'},
   ];
 
   updateNavTree(response: any, dealId: number): void {
     this.navTreeChanges.next(
-      this.knownNavs.map(({key, collection}) => {
+      this.knownNavs.map(({key, collection, titlePath}) => {
 
         if (response._links[key]) {
-          const answer = collection ?
-            this.getCollectionNav(response, key, dealId) :
+          return collection ?
+            this.getCollectionNav(response, key, dealId, titlePath) :
             this.getSimpleNav(response, key, dealId);
-          return answer;
         }
     }));
   }
 
-  getCollectionNav(response, key, dealId): NavItem {
+  getCollectionNav(response, key, dealId, path): NavItem {
 
     const topLevel = this.getSimpleNav(response, key, dealId);
     const specializations = Object.keys(response._embedded[key]._links)
@@ -43,19 +42,19 @@ export class DealNavigationService {
 
       return {
         href: '#',
-        title: Lang.translate(specialization),
+        title: Lang.translate(specialization.split(':')[1]),
         children: embedded[specialization]._embedded[specialization].map(
           item => {
             const linkKey = Object.keys(item._links)[0];
             return {
-              href: specialization.split(':')[1],
-              title: 'temp title',
+              href: `${specialization.split(':')[1]}/${item.id}`,
+              title: path.split('.').reduce((all, cur) => all[cur], item),
               state: {
-                href: item._links[linkKey],
+                href: item._links[linkKey].href,
                 propertyName: 'elante',
                 currieName: linkKey,
                 classRef: UtilsService.nameToClass(linkKey.split(':')[1]) + 'Dto',
-                valueProp: 'id', // should get this from proper schema
+                valueProp: 'id',
                 dealId,
                 id: item.id || undefined
               }

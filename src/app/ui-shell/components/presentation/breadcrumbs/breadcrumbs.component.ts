@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, ActivationStart, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { Router, ActivationStart } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, distinctUntilChanged, map, tap } from 'rxjs/operators';
 
@@ -18,7 +18,7 @@ export class BreadcrumbsComponent implements OnInit {
    * and child routes to show a proper breadcrumb.
    */
   breadcrumbs$: Observable<Breadcrumb[]>;
-  title: string = 'not set';
+  title = 'not set';
 
   constructor(
     private router: Router,
@@ -28,7 +28,7 @@ export class BreadcrumbsComponent implements OnInit {
       distinctUntilChanged(),
       tap((e: ActivationStart) => this.title = e.snapshot.data?.title),
       map((e: ActivationStart) => [{label: e?.snapshot?.data?.breadcrumbs?.label, url: this.router.url}])
-    )
+    );
   }
 
   ngOnInit(): void {
@@ -37,6 +37,6 @@ export class BreadcrumbsComponent implements OnInit {
 }
 
 export interface Breadcrumb {
-  url: string,
-  label: string
+  url: string;
+  label: string;
 }

@@ -2,38 +2,47 @@ import { Property, XAttributes } from './open-api-parser.model';
 
 export class OpenApiProperty {
 
-    // tslint:disable:variable-name
-    protected _name: string;
-    protected _property: Property;
+  // tslint:disable:variable-name
+  protected _name: string;
+  protected _property: Property;
 
-    constructor(name: string, property: Property) {
-        this._name = name;
-        this._property = property;
-    }
+  constructor(name: string, property: Property) {
+      this._name = name;
+      this._property = property;
+  }
 
-    get name(): string { return this._name; }
+  get name(): string { return this._name; }
 
-    get type(): string { return this._property.type; }
+  get type(): string { return this._property.type; }
 
-    get types(): string[] {
-        if (0 === this._property.oneOf.length) {
-            return [];
-        }
+  get types(): string[] {
+      if (0 === this._property.oneOf.length) {
+          return [];
+      }
 
-        const retVal: string[] = [];
+      const retVal: string[] = [];
 
-        for (const type of this._property.oneOf) {
-            retVal.push(type.SchemaName);
-        }
+      for (const type of this._property.oneOf) {
+          retVal.push(type.SchemaName);
+      }
 
-        return retVal;
-    }
+      return retVal;
+  }
 
-    get itemType(): string {
-        return this._property.items.SchemaName;
-    }
+  get itemType(): string {
+      return this._property.items.SchemaName;
+  }
 
-    get x(): XAttributes { return this._property.x; }
+  get x(): XAttributes { return this._property.x; }
 
-    get format(): string { return this._property.format; }
+  get format(): string { return this._property.format; }
+
+  get allMeta(): {[key: string]: any } {
+    return {
+        required: !this._property.nullable,
+        format: this._property.format,
+        type: this._property.type,
+        ...this._property.x.all()
+    };
+  }
 }
