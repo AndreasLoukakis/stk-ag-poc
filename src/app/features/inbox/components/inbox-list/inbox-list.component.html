@@ -6,14 +6,23 @@
         [config]="{listType: 'data', itemTemplate: itemTpl}">
     </stk-list>
 </ng-container>
+
 <ng-template #itemTpl let-item="item">
     <div>
-        <a [routerLink]="['/deals/' + item.id]">
-            <strong>Item #{{item.id}}</strong>
-            <pre class="explanation" debug>{{item | json}}</pre>
-        </a>
+        <p>
+            <a [routerLink]="['/deals/' + item.id]">
+                <strong>Deal id{{item.id}}</strong>
+                <pre class="explanation" debug>{{item | json}}</pre>
+            </a>
+        </p>
+        <small>Application id: {{item?.application?.id}}</small>
+        <div class="pf-l-flex pf-m-wrap">
+            <div>Product id: {{item?.application?.product?.id}}</div>
+            <div>Loan Type: {{item?.application?.product?.loanType?.name}}</div>
+        </div>
     </div>
 </ng-template>
+
 <ng-template #loading>
     <span class="pf-c-spinner" role="progressbar" aria-valuetext="Loading...">
         <span class="pf-c-spinner__clipper"></span>
