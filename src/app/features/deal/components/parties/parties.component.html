@@ -1,1 +1,25 @@
-renderinfo: <pre>{{ renderInfo | json }}</pre>
+<div class="pf-l-grid pf-m-gutter pf-m-all-12-col-on-sm pf-m-all-6-col-on-md">
+    <ng-container *ngIf="(subResourceInfo$ | async) as resources">
+        <div class="pf-l-grid__item" *ngIf="resources.borrowerRoleType">
+            <ng-template appRenderer
+                [renderInfo]="resources.borrowerRoleType"
+                [formgroup]="formgroup"></ng-template>
+        </div>
+        <div class="pf-l-grid__item" *ngIf="resources.dealPartyRoleType">
+            <ng-template appRenderer
+                [renderInfo]="resources.dealPartyRoleType"
+                [formgroup]="formgroup"></ng-template>
+            </div>
+    </ng-container>
+</div>
+<div debug class="explanation">
+    renderinfo: <pre>{{ renderInfo | json }}</pre>
+    <div>
+        Renderdata:
+        <pre>{{renderData$ | async | json}}</pre>
+    </div>
+    <div>
+        Subresources:
+        <pre>{{subResourceInfo$ | async | json}}</pre>
+    </div>
+</div>

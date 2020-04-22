@@ -10,7 +10,8 @@ import { ResourceInfo } from 'src/app/stk/interfaces';
 @Component({
   selector: 'app-parties',
   templateUrl: './parties.component.html',
-  styleUrls: ['./parties.component.scss']
+  styleUrls: ['./parties.component.scss'],
+  providers: [{provide: ComplexBaseComponent, useExisting: PartiesComponent}]
 })
 export class PartiesComponent extends ComplexBaseComponent {
 
