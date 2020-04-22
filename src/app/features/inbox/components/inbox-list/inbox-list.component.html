@@ -3,7 +3,8 @@
         <button (click)="createDeal()" class="pf-c-button pf-m-primary" type="button">Create Deal</button>
     </div>
     <stk-list [iterable]="deals"
-        [config]="{listType: 'data', itemTemplate: itemTpl}">
+        [config]="{listType: 'data', itemTemplate: itemTpl,
+            expandable: true, expandItemTemplate: myExpandedTpl}">
     </stk-list>
 </ng-container>
 
@@ -21,6 +22,16 @@
             <div>Loan Type: {{item?.application?.product?.loanType?.name}}</div>
         </div>
     </div>
+</ng-template>
+
+<ng-template #myExpandedTpl let-item="item">
+    <section class="pf-c-data-list__expandable-content">
+        <div class="pf-c-data-list__expandable-content-body pf-u-p-md">
+            <h3>Party data</h3>
+            Name: <strong>{{item?.borrower?.party?.name?.firstName}} {{item?.borrower?.party?.name?.lastName}}</strong>
+            
+        </div>
+    </section>
 </ng-template>
 
 <ng-template #loading>
