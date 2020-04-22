@@ -254,6 +254,18 @@ export class Schema extends XContainer implements Serializable<Schema> {
             }
           }
       }
+
+      if (json.allOf) {
+        for (const jObject of json.allOf) {
+            if (SchemaRef.IsSchemaRef(jObject)) {
+                const instance = new SchemaRef().Deserialize(jObject);
+                this.allOf.push(instance);
+            } else {
+                const instance = new Schema().Deserialize(jObject);
+                this.allOf.push(instance);
+            }
+        }
+    }
       super.Deserialize(json);
       return this;
   }

@@ -19,7 +19,6 @@ export class OpenApiModelService {
    * merge with a subject, to keep stream open and not trigger
    * multiple http requests to various subscriptions
    */
-  // tslint:disable-next-line:variable-name
   domain$: Observable<OpenApiParser> = merge(
     this.openStream$,
     this.getJson()).pipe(shareReplay(1));

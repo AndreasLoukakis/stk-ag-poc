@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 import { filter } from 'rxjs/operators';
 
@@ -21,7 +21,7 @@ export class PartiesComponent extends ComplexBaseComponent {
     super(api);
     this.setContext();
     this.router.events.pipe(
-      filter(event => event instanceof NavigationStart)
+      filter(event => event instanceof NavigationEnd)
       )
       .subscribe(routeEvent => {
         const navigation = router.getCurrentNavigation();

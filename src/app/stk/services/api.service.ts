@@ -3,7 +3,6 @@ import { Observable, of, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HalService } from './hal.service';
 import { ResourceHelpersService } from './resource-helpers.service';
-import { DynamicClass } from './../../openapi-stubs/dynamic-class-proxy';
 import { TranslateService as Lang } from './translate.service';
 import { OpenApiModelService } from './../open-api-parser/open-api.service';
 import { environment } from './../../../environments/environment';
@@ -125,7 +124,6 @@ export class ApiService {
       value: resourceInfo[resourceInfo.valueProp] ? resourceInfo[resourceInfo.valueProp] : null
     };
 
-    debugger;
     if (resourceInfo.values && resourceInfo.values.href) {
       result.x_lookupItems$ = this.hal.getResourceValues(resourceInfo)
         .pipe(

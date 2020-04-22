@@ -71,7 +71,7 @@ export class OpenApiParser {
         // paths afters that - because there's more than one paths per Schema most probably
         // for (let key of document.components.schemas.keys())
         document.components.schemas.forEach((docSchema: Schema, key: string) => {
-            const schema = new OpenApiSchema(key, docSchema);
+            const schema = new OpenApiSchema(key, docSchema, (k) => this._schemas.get(k));
             this._schemas.set(key, schema);
         });
 
