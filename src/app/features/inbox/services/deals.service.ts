@@ -13,7 +13,7 @@ export class DealsService {
 
   getDeals(): Observable<any[]> {
     return this.http.get<DealsListResponse>(`${environment.apiUrl}/deals`).pipe(
-      map(response => response._embedded.deals)
+      map(response => response._embedded.item)
     );
   }
 
@@ -25,6 +25,6 @@ export class DealsService {
 export interface DealsListResponse {
   _links: { [key: string]: any };
   _embedded: {
-    deals: any[]
+    item: any[]
   };
 }
