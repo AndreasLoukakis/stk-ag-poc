@@ -13,8 +13,8 @@ export class DebugDirective implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.uiState.debug$.subscribe(state => {
-      this.el.nativeElement.style.display = state ? 'block' : 'none';
+    this.uiState.state$.subscribe(state => {
+      this.el.nativeElement.style.display = state.debug ? 'block' : 'none';
     });
   }
 

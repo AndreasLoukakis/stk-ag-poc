@@ -7,6 +7,8 @@ import { StkModule } from './../stk/stk.module';
 import { StkListsModule } from 'stk-lists';
 import { StkTablesModule } from 'stk-tables';
 
+// tmp stk, while development
+import { PaginationModule } from './../stk/pagination/pagination.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { StkTablesModule } from 'stk-tables';
     StkModule,
     ReactiveFormsModule,
     StkListsModule,
-    StkTablesModule
+    StkTablesModule,
+    PaginationModule
   ],
   exports: [
     CommonModule,
@@ -27,7 +30,8 @@ import { StkTablesModule } from 'stk-tables';
     StkModule,
     ReactiveFormsModule,
     StkListsModule,
-    StkTablesModule
+    StkTablesModule,
+    PaginationModule
   ]
 })
 export class SharedModule { }

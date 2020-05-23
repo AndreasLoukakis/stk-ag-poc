@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: ':id', component: DealComponent,
     children: [
       {
-        path: 'application', component: ApplicationComponent,
+        path: ':halkey', component: ApplicationComponent,
         data: { title: 'Application', breadcrumbs: {label: 'Application'} },
       },
       {

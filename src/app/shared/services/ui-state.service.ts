@@ -1,17 +1,30 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UiStateService {
 
-  private debugState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  debug$ = this.debugState$.asObservable();
+  defaultState: UIStateInterface = {
+    debug: false
+  };
+
+  // tslint:disable-next-line:variable-name
+  private _state$: BehaviorSubject<UIStateInterface> = new BehaviorSubject(this.defaultState);
+  state$ = this._state$.asObservable();
 
   constructor() { }
 
-  setDebugMode(state: boolean) {
-    this.debugState$.next(state);
+  private getStateSnapshot() {
+    return this._state$.getValue();
   }
+
+  setDebugMode(mode: boolean) {
+    this._state$.next({...this.getStateSnapshot(), debug: mode});
+  }
+}
+
+export interface UIStateInterface {
+  debug: boolean;
 }

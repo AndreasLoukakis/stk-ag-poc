@@ -1,8 +1,5 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ResourceInfo } from './../../stk/interfaces';
-import { Observable } from 'rxjs';
 import { DealApiService } from './services/deal-api.service';
 import { DealNavigationService } from './services/deal-navigation.service';
 
