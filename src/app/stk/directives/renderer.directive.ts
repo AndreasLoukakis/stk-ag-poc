@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { ResourceInfo } from './../interfaces';
 import { ComplexBaseComponent } from '../abstract/complex-base-component';
-import { ComponentMapperService } from '../../common/services/component-mapper.service';
+import { ComponentMapperService } from '../../shared/services/component-mapper.service';
 import { UtilsService as Utils } from '../services/utils.service';
 import { FormGroup } from '@angular/forms';
 
@@ -53,10 +53,10 @@ export class RendererDirective implements OnChanges, OnInit {
     const folder = Utils.nameToComponentFolder(name);
     let module;
     try {
-      module = await import (`./../../common/lazy/${folder}/${fileName}`);
+      module = await import (`./../../shared/lazy/${folder}/${fileName}`);
     } catch (e) {
       console.error('Component not implemented or not properly resolved', e);
-      module = await import (`../../common/lazy/fallback/fallback.component`);
+      module = await import (`../../shared/lazy/fallback/fallback.component`);
       className = 'FallbackComponent';
     }
 

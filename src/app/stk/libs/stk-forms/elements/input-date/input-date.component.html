@@ -1,0 +1,28 @@
+<div
+    class="d-form__element pf-c-form__group"
+    [formGroup]="group">
+    <label class="pf-c-form__label" for="{{config.name}}">
+      <span class="pf-c-form__label-text">{{ config.title }}</span>
+    </label>
+    <div class="pf-c-input-group">
+      <input class="pf-c-form-control" stkDatepicker #dd="stkDatepicker"
+        [ngClass]="{'pf-m-success': showSuccess && !group.controls[config.name].errors}"
+        [readonly]="config.x_readonly || config.x_disabled"
+        [attr.placeholder]="config.x_placeholder"
+        [formControlName]="config.name"
+        [attr.aria-invalid]="!!group.controls[config.name].errors"
+        [displayMonths]="dateConfig.displayMonths"
+        [minDate]="dateConfig.minDate"
+        [maxDate]="dateConfig.maxDate"
+        [markDisabled]="dateConfig.markDisabled"
+        [placement]="dateConfig.placement"
+        [autoClose]="dateConfig.autoClose"
+        [navigation]="dateConfig.navigation"
+        [displayMonths]="dateConfig.displayMonths"
+        type="text"/>
+        <button  class="pf-c-button pf-m-control" type="button" (click)="dd.toggle()">
+          <i class="fas" [ngClass]="dateConfig.buttonIcon" aria-hidden="true"></i>
+        </button>
+    </div>
+    <stk-error-container *ngIf="showValidationMessage" [group]="group" [config]="config"></stk-error-container>
+</div>

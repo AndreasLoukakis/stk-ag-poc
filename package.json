@@ -24,13 +24,8 @@
     "@angular/router": "~9.0.5",
     "@patternfly/patternfly": "^2.68.3",
     "rxjs": "~6.5.4",
-    "stk-datepicker": "0.0.9",
-    "stk-forms": "0.0.36",
-    "stk-lists": "0.0.4",
-    "stk-pagination": "0.0.3",
-    "stk-tables": "0.0.3",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "^0.10.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.5",

@@ -1,0 +1,24 @@
+<thead>
+  <tr>
+    <th *ngIf="config.expandable">&nbsp;</th>
+    <th scope="col"
+      *ngFor="let col of config.columns | keyvalue"
+      [ngClass]="{'pf-c-table__sort': config.sortable, 'pf-m-selected': config.sortable && sortedBy === col.key}">
+      <ng-container *ngIf="config.sortable">
+        <button class="pf-c-button pf-m-plain" type="button">{{getLabel(col.value)}}
+          <span class="pf-c-table__sort-indicator">
+            <ng-container *ngIf="sortedBy === col.key">
+              <i class="fas" [ngClass]="{'fa-long-arrow-alt-up': sortDirection === 'asc', 'fa-long-arrow-alt-down': sortDirection === 'desc'}"></i>
+            </ng-container>
+            <ng-container *ngIf="sortedBy !== col.key">
+              <i class="fas fa-arrows-alt-v"></i>
+            </ng-container>
+          </span>
+        </button>
+      </ng-container>
+      <ng-container *ngIf="!config.sortable">
+        {{getLabel(col.value)}}
+      </ng-container>
+    </th>
+  </tr>
+</thead>

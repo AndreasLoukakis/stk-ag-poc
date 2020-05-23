@@ -1,0 +1,39 @@
+<li class="pf-c-data-list__item"  [ngClass]="{'pf-m-expanded': expanded}">
+  <div class="pf-c-data-list__item-row">
+
+  <ng-container *ngIf="config.controlItemTemplate !== null || config.expandable">
+    <div class="pf-c-data-list__item-control">
+      <ng-container *ngIf="config.expandable">
+        <div class="pf-c-data-list__toggle">
+          <button class="pf-c-button pf-m-plain" type="button" (click)="toggleExpanded()">
+            <i class="fas fa-angle-right pf-c-data-list__toggle-icon"></i>
+          </button>
+        </div>
+      </ng-container>
+      <ng-container *ngTemplateOutlet="config.controlItemTemplate;context:{item: item}"></ng-container>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="config.itemTemplate !== null">
+    <div class="pf-c-data-list__item-content pf-m-grow">
+      <ng-container *ngTemplateOutlet="config.itemTemplate;context:{item: item}"></ng-container>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="config.actionsItemTemplate !== null">
+    <div class="pf-c-data-list__item-action">
+      <ng-container *ngTemplateOutlet="config.actionsItemTemplate;context:{item: item}"></ng-container>
+    </div>
+  </ng-container>
+
+</div>
+
+<ng-container *ngIf="config.expandItemTemplate !== null && config.expandable">
+  <section class="pf-c-data-list__expandable-content" [hidden]="!expanded">
+    <div class="pf-c-data-list__expandable-content-body pf-m-no-padding">
+      <ng-container *ngTemplateOutlet="config.expandItemTemplate;context:{item: item}"></ng-container>
+    </div>
+  </section>
+</ng-container>
+
+</li>

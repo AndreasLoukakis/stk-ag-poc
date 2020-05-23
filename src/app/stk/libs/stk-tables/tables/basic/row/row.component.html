@@ -1,0 +1,29 @@
+<tr>
+  <ng-container *ngIf="config.expandable">
+    <td class="pf-c-table__toggle">
+      <button class="pf-c-button pf-m-plain" [ngClass]="{'pf-m-expanded': expanded}" aria-label="Details" (click)="toggleExpanded()">
+        <i class="fas fa-angle-down pf-c-table__toggle-icon"></i>
+      </button>
+    </td>
+  </ng-container>
+  <ng-container *ngFor="let col of config.columns | keyvalue">
+    <ng-container *ngIf="config.tdTemplate">
+      <ng-container *ngTemplateOutlet="config.tdTemplate;context:{item: item, col: col, columns: config.columns}"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="noTdTemplate(config) && noCellTemplate(config, col.key)">
+      <td>{{item[col.key]}}</td>
+    </ng-container>
+    <ng-container *ngIf="noTdTemplate(config) && !noCellTemplate(config, col.key)">
+      <td [innerHTML]="parseTemplate(config.columns[col.key], item)"></td>
+    </ng-container>
+  </ng-container>
+</tr>
+<ng-container *ngIf="config.expandable && config.expandItemTemplate">
+  <tr class="pf-c-table__expandable-row" [ngClass]="{'pf-m-expanded': expanded}">
+    <td [attr.colspan]="columnCount">
+      <div class="pf-c-table__expandable-row-content">
+        <ng-container *ngTemplateOutlet="config.expandItemTemplate;context:{item: item}"></ng-container>
+      </div>
+    </td>
+  </tr>
+</ng-container>

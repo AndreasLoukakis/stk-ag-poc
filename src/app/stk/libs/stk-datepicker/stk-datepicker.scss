@@ -1,0 +1,62 @@
+stk-datepicker {
+  border: 1px solid #dfdfdf;
+  border-radius: .25rem;
+  display: inline-block;
+  background: white;
+
+  &-month-view {
+    pointer-events: auto;
+  }
+
+  &.dropdown-menu {
+    padding: 0;
+  }
+}
+
+.stk-dp {
+  &-body {
+    z-index: 1050;
+  }
+
+  &-header {
+    border-bottom: 0;
+    border-radius: .25rem .25rem 0 0;
+    padding: .5rem .5rem 0 .5rem;
+    background: rgb(250, 250, 250);
+  }
+
+  &-months {
+    display: flex;
+  }
+
+  &-month {
+    pointer-events: none;
+
+    &-name {
+      font-size: larger;
+      height: 2rem;
+      line-height: 2rem;
+      text-align: center;
+      background: rgb(250, 250, 250);
+    }
+
+
+    & + & {
+      .stk-dp-month-name, .stk-dp-week {
+        padding-left: 1rem;
+      }
+    }
+
+    &:last-child .stk-dp-week {
+      padding-right: .25rem;
+    }
+
+    &:first-of-type .stk-dp-week {
+      padding-left: .25rem;
+    }
+
+    .stk-dp-week:last-child {
+      padding-bottom: .25rem;
+    }
+  }
+}

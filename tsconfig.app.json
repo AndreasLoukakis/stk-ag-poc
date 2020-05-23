@@ -10,7 +10,7 @@
   ],
   "include": [
     "src/**/*.d.ts",
-    "src/app/common/lazy/**/*.component.ts",
-    "src/app/stk/open-api-parser/lib/*.ts",
+    // "src/app/common/lazy/**/*.component.ts",
+    // "src/app/stk/open-api-parser/lib/*.ts",
   ]
 }

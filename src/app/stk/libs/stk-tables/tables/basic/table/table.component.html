@@ -1,0 +1,25 @@
+<table class="pf-c-table" [ngClass]="calcTableClass()" role="grid">
+  <ng-container *ngIf="config.columns">
+    <stk-thead [config]="config" [sortDirection]="sortDirection" [sortedBy]="sortedBy"></stk-thead>
+  </ng-container>
+  <tbody *ngIf="!config.compound">
+    <ng-container *ngIf="items && items.length > 0">
+      <ng-container *ngFor="let item of items;">
+        <ng-container *ngIf="config.trTemplate">
+          <ng-container *ngTemplateOutlet="config.trTemplate;context:{item: item}"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="!config.trTemplate">
+          <stk-row [item]="item" [config]="config" [columnCount]="columnCount"></stk-row>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="!items || items.length === 0">
+      <stk-row-no-results [columnCount]="columnCount" [config]="config"></stk-row-no-results>
+    </ng-container>
+  </tbody>
+  <ng-container *ngIf="config.compound">
+    <ng-container *ngFor="let item of items">
+      <stk-compound-row [item]="item" [config]="config"></stk-compound-row>
+    </ng-container>
+  </ng-container>
+</table>

@@ -1,0 +1,43 @@
+<ng-template #dt let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled" let-focused="focused">
+  <div stkDatepickerDayView
+    [date]="date"
+    [currentMonth]="currentMonth"
+    [selected]="selected"
+    [disabled]="disabled"
+    [focused]="focused">
+  </div>
+</ng-template>
+
+<div class="stk-dp-header">
+  <stk-datepicker-navigation *ngIf="navigation !== 'none'"
+    [date]="model.firstDate"
+    [months]="model.months"
+    [disabled]="model.disabled"
+    [showSelect]="model.navigation === 'select'"
+    [prevDisabled]="model.prevDisabled"
+    [nextDisabled]="model.nextDisabled"
+    [selectBoxes]="model.selectBoxes"
+    (navigate)="onNavigateEvent($event)"
+    (select)="onNavigateDateSelect($event)">
+  </stk-datepicker-navigation>
+</div>
+
+<div #months class="stk-dp-months" (keydown)="onKeyDown($event)">
+  <ng-template ngFor let-month [ngForOf]="model.months" let-i="index">
+    <div class="stk-dp-month">
+      <div *ngIf="navigation === 'none' || (displayMonths > 1 && navigation === 'select')"
+            class="stk-dp-month-name">
+        {{ i18n.getMonthFullName(month.number, month.year) }} {{ i18n.getYearNumerals(month.year) }}
+      </div>
+      <stk-datepicker-month-view
+        [month]="month"
+        [dayTemplate]="dayTemplate || dt"
+        [showWeekdays]="showWeekdays"
+        [showWeekNumbers]="showWeekNumbers"
+        (select)="onDateSelect($event)">
+      </stk-datepicker-month-view>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template [ngTemplateOutlet]="footerTemplate"></ng-template>

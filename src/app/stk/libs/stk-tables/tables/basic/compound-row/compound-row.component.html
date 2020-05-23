@@ -1,0 +1,32 @@
+<tbody role="rowgroup" [ngClass]="{'pf-m-expanded': expanded}">
+  <tr role="row">
+    <ng-container *ngFor="let col of config.columns | keyvalue">
+      <ng-container *ngIf="isArray(item[col.key]) && col.value.config">
+        <td class="pf-c-table__compound-expansion-toggle"
+          [ngClass]="{'pf-m-expanded': expandedCompound === col.key}">
+          <button class="pf-c-button pf-m-link" type="button" (click)="setExpandedCompound(col.key)">
+            <span *ngIf="col.value.icon" class="pf-c-button__icon">
+              <i class="fas" [ngClass]="col.value.icon"></i>
+            </span>
+            {{col.value.label}}
+          </button>
+        </td>
+      </ng-container>
+      <ng-container *ngIf="!isArray(item[col.key]) || !col.value.config">
+          <td>
+              {{item[col.key]}}
+          </td>
+      </ng-container>
+          
+      </ng-container>
+  </tr>
+  <ng-container *ngFor="let col of config.columns | keyvalue">
+    <tr *ngIf="isArray(item[col.key]) && col.value.config"
+      role="row" class="pf-c-table__expandable-row"
+      [ngClass]="{'pf-m-expanded': expandedCompound === col.key}">
+      <td [attr.colspan]="columnCount">
+        <stk-table [items]="item[col.key]" [config]="col.value.config"></stk-table>
+      </td>
+    </tr>
+  </ng-container>
+</tbody>

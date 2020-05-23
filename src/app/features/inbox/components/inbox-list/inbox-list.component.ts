@@ -1,5 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+
 import { ComplexBaseComponent } from './../../../../stk/abstract/complex-base-component';
 import { ApiService } from '../../../../stk/services/api.service';
 import { ListConfig, listTypes } from 'stk-lists';
@@ -31,7 +33,7 @@ export class InboxListComponent extends ComplexBaseComponent implements OnInit {
   }
 
   createDeal() {
-    this.service.createDeal().subscribe(
+    this.service.createDeal().pipe(take(1)).subscribe(
       _ => this.deals$ = this.service.getDeals()
     );
   }
