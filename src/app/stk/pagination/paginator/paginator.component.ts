@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PaginationData } from './../common/interfaces/pagination-data.interface';
 
 @Component({
@@ -8,10 +8,22 @@ import { PaginationData } from './../common/interfaces/pagination-data.interface
 })
 export class PaginatorComponent implements OnInit {
 
-  paginationData: PaginationData;
+  @Input() config: PaginationConfig;
+
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.config = { ...defaultPaginationconfig, ...this.config };
   }
 
 }
+
+export interface PaginationConfig {
+  isHeader: boolean;
+  isFooter: boolean;
+}
+
+export const defaultPaginationconfig = {
+  isHeader: false,
+  isFooter: false
+};
